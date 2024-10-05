@@ -1,0 +1,155 @@
+@import "../helper/reset.scss";
+
+.sidebar_parent {
+  width: 100%;
+  max-width: 280px;
+  height: calc(100% - 110px);
+  .profile_box {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background: #ffe292;
+    border-radius: 8px;
+    padding: 20px 40px;
+    box-shadow: 2px 4px 10px 0px #1e1e1e08;
+    margin-bottom: 10px;
+    .profile_image {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+    }
+    .profile_name {
+      margin-left: 12px;
+      h6 {
+        font-family: Poppins;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 21px;
+        color: #4d4d4d;
+      }
+      h5 {
+        font-family: Poppins;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 24px;
+        color: $black;
+      }
+    }
+  }
+  .sidebar_box {
+    width: 100%;
+    height: 100%;
+    background: #033439;
+    border-radius: 8px;
+    padding: 50px 30px;
+    ul {
+      li {
+        a {
+          display: flex;
+          align-items: center;
+          .css-i4bv87-MuiSvgIcon-root {
+            width: 24px;
+            height: 24px;
+            color: $secondaryText;
+            margin-right: 25px;
+          }
+          font-family: Poppins;
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 24px;
+          color: $secondaryText;
+          text-wrap: nowrap;
+          padding: 9px 12px;
+          margin-bottom: 18px;
+          &:hover {
+            color: $quaternaryText;
+            background-color: #ffe292;
+            border-radius: 4px;
+            transition: all 0.3s ease-in-out;
+            position: relative;
+            .css-i4bv87-MuiSvgIcon-root {
+              color: $quaternaryText;
+              transition: all 0.3s ease-in-out;
+            }
+            &::before {
+              content: "";
+              position: absolute;
+              width: 4px;
+              height: 20px;
+              background-color: #fcae30;
+              transition: all 0.3s ease-in-out;
+              border-radius: 2px;
+              top: 12px;
+              left: 0;
+            }
+          }
+          &.active {
+            color: $quaternaryText;
+            background-color: #ffe292;
+            border-radius: 4px;
+            position: relative;
+            .css-i4bv87-MuiSvgIcon-root {
+              color: $quaternaryText;
+            }
+            &::before {
+              content: "";
+              position: absolute;
+              width: 4px;
+              height: 20px;
+              background-color: #fcae30;
+              border-radius: 2px;
+              top: 12px;
+              left: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Extra Huge large desktops */
+@media (min-width: 1920px) {
+}
+
+/* Extra Huge large desktops */
+@media (min-width: 1680px) and (max-width: 1919px) {
+}
+
+/* Extra Huge large desktops */
+@media (min-width: 1600px) and (max-width: 1679px) {
+}
+
+/* Extra large desktops and mac laptops*/
+@media (min-width: 1400px) and (max-width: 1599px) {
+}
+
+/* Landscape tablets and medium desktops */
+@media (min-width: 992px) and (max-width: 1199px) {
+}
+
+/* Landscape tablets and ipad */
+@media (min-width: 768px) and (max-width: 991px) {
+}
+
+/* Landscape phones and portrait tablets */
+@media (min-width: 576px) and (max-width: 767px) {
+}
+
+/* Landscape phones and portrait tablets */
+@media (min-width: 361px) and (max-width: 575px) {
+}
+
+/* Smaller phones */
+@media (max-width: 360px) {
+}
+
+/* Smaller phones */
+@media (max-width: 320px) {
+}

@@ -1,0 +1,559 @@
+@import "../helper/reset.scss";
+
+.filter_parent {
+  width: 485px;
+  padding: 80px 60px;
+  background-color: $white;
+  transition: all 0.3s ease-in-out;
+  border-radius: 10px;
+  position: absolute;
+  top: -35px;
+  left: 0;
+  z-index: 1;
+  .filter_head {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 60px;
+    h3 {
+      font-family: Clash_Display;
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 29.52px;
+      letter-spacing: 0.08em;
+      color: $black;
+    }
+    .arrow_icon {
+      width: 50px;
+      height: 50px;
+      line-height: 60px;
+      text-align: center;
+      border: 2px solid $primaryBorder;
+      border-radius: 50%;
+      .css-i4bv87-MuiSvgIcon-root {
+        width: 24px;
+        height: 24px;
+      }
+      &:hover {
+        background-color: $hoverText;
+      }
+    }
+  }
+  .availability_parent {
+    margin-bottom: 40px;
+    .css-1nrlq1o-MuiFormControl-root {
+      width: 100%;
+      .css-u4tvz2-MuiFormLabel-root {
+        font-family: Poppins;
+        font-size: 14px;
+        font-weight: 400;
+        color: #282828;
+        padding-bottom: 10px;
+        margin-bottom: 30px;
+        border-bottom: 1px solid #d0d0d0;
+      }
+
+      .css-j204z7-MuiFormControlLabel-root {
+        padding-left: 30px;
+        margin-bottom: 20px;
+      }
+      .css-vqmohf-MuiButtonBase-root-MuiRadio-root.Mui-checked {
+        color: #fcae30;
+      }
+      .css-ahj2mt-MuiTypography-root {
+        font-family: Poppins;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 24px;
+        color: $quaternaryText;
+      }
+    }
+  }
+  .product_category_parent {
+    margin-bottom: 40px;
+    .css-u4tvz2-MuiFormLabel-root {
+      font-family: Poppins;
+      font-size: 14px;
+      font-weight: 400;
+      color: #282828;
+      padding-bottom: 10px;
+      margin-bottom: 30px;
+      border-bottom: 1px solid #d0d0d0;
+    }
+    .css-j204z7-MuiFormControlLabel-root {
+      padding-left: 30px;
+      margin-bottom: 20px;
+    }
+    .css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root.Mui-checked {
+      color: #fcae30;
+    }
+    .css-ahj2mt-MuiTypography-root {
+      font-family: Poppins;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 24px;
+      color: $quaternaryText;
+    }
+  }
+  .price_range_parent {
+    .css-u4tvz2-MuiFormLabel-root {
+      font-family: Poppins;
+      font-size: 14px;
+      font-weight: 400;
+      color: #282828;
+      padding-bottom: 10px;
+      margin-bottom: 30px;
+      border-bottom: 1px solid #d0d0d0;
+    }
+    .css-j204z7-MuiFormControlLabel-root {
+      margin-bottom: 20px;
+    }
+    .on_sale_field {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-left: 30px;
+      padding-right: 100px;
+      .css-j204z7-MuiFormControlLabel-root {
+        margin-bottom: 0;
+      }
+      .css-byenzh-MuiButtonBase-root-MuiSwitch-switchBase {
+        color: #fcae30;
+      }
+      .css-byenzh-MuiButtonBase-root-MuiSwitch-switchBase.Mui-checked
+        + .MuiSwitch-track {
+        background-color: #fcae30;
+      }
+      .css-9npbnl-MuiFormLabel-root-MuiInputLabel-root {
+        font-family: Poppins;
+        font-size: 16px;
+        font-weight: 400;
+        color: $quaternaryText;
+      }
+    }
+  }
+}
+
+/* Extra Huge large desktops */
+@media (min-width: 1920px) {
+}
+
+/* Extra Huge large desktops */
+@media (min-width: 1680px) and (max-width: 1919px) {
+}
+
+/* Extra Huge large desktops */
+@media (min-width: 1600px) and (max-width: 1679px) {
+}
+
+/* Extra large desktops and mac laptops*/
+@media (min-width: 1400px) and (max-width: 1599px) {
+}
+
+/* Landscape tablets and medium desktops */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .filter_parent {
+    width: 450px;
+  }
+}
+
+/* Landscape tablets and ipad */
+@media (min-width: 768px) and (max-width: 991px) {
+  .filter_parent {
+    width: 400px;
+    padding: 70px 50px;
+    .filter_head {
+      margin-bottom: 50px;
+      h3 {
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 29.52px;
+      }
+      .arrow_icon {
+        width: 50px;
+        height: 50px;
+        line-height: 60px;
+      }
+    }
+    .availability_parent {
+      margin-bottom: 35px;
+      .css-1nrlq1o-MuiFormControl-root {
+        width: 100%;
+        .css-u4tvz2-MuiFormLabel-root {
+          padding-bottom: 10px;
+          margin-bottom: 25px;
+          border-bottom: 1px solid #d0d0d0;
+        }
+
+        .css-j204z7-MuiFormControlLabel-root {
+          padding-left: 25px;
+          margin-bottom: 20px;
+        }
+        .css-ahj2mt-MuiTypography-root {
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 24px;
+        }
+      }
+    }
+    .product_category_parent {
+      margin-bottom: 35px;
+      .css-u4tvz2-MuiFormLabel-root {
+        padding-bottom: 10px;
+        margin-bottom: 25px;
+      }
+      .css-j204z7-MuiFormControlLabel-root {
+        padding-left: 25px;
+        margin-bottom: 20px;
+      }
+      .css-ahj2mt-MuiTypography-root {
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 24px;
+      }
+    }
+    .price_range_parent {
+      .css-u4tvz2-MuiFormLabel-root {
+        padding-bottom: 10px;
+        margin-bottom: 25px;
+      }
+      .css-j204z7-MuiFormControlLabel-root {
+        margin-bottom: 20px;
+      }
+      .on_sale_field {
+        padding-left: 25px;
+        padding-right: 50px;
+        .css-j204z7-MuiFormControlLabel-root {
+          margin-bottom: 0;
+        }
+        .css-9npbnl-MuiFormLabel-root-MuiInputLabel-root {
+          font-size: 16px;
+          font-weight: 400;
+        }
+      }
+    }
+  }
+}
+
+/* Landscape phones and portrait tablets */
+@media (min-width: 576px) and (max-width: 767px) {
+  .filter_parent {
+    width: 330px;
+    padding: 50px 35px;
+    top: -37px;
+    .filter_head {
+      margin-bottom: 40px;
+      h3 {
+        font-size: 22px;
+        font-weight: 700;
+        line-height: 26.52px;
+      }
+      .arrow_icon {
+        width: 45px;
+        height: 45px;
+        line-height: 55px;
+      }
+    }
+    .availability_parent {
+      margin-bottom: 30px;
+      .css-1nrlq1o-MuiFormControl-root {
+        width: 100%;
+        .css-u4tvz2-MuiFormLabel-root {
+          padding-bottom: 10px;
+          margin-bottom: 20px;
+          border-bottom: 1px solid #d0d0d0;
+        }
+
+        .css-j204z7-MuiFormControlLabel-root {
+          padding-left: 20px;
+          margin-bottom: 18px;
+        }
+        .css-ahj2mt-MuiTypography-root {
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 24px;
+        }
+      }
+    }
+    .product_category_parent {
+      margin-bottom: 30px;
+      .css-u4tvz2-MuiFormLabel-root {
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+      }
+      .css-j204z7-MuiFormControlLabel-root {
+        padding-left: 20px;
+        margin-bottom: 18px;
+      }
+      .css-ahj2mt-MuiTypography-root {
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 24px;
+      }
+    }
+    .price_range_parent {
+      .css-u4tvz2-MuiFormLabel-root {
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+      }
+      .css-j204z7-MuiFormControlLabel-root {
+        margin-bottom: 18px;
+      }
+      .on_sale_field {
+        padding-left: 20px;
+        padding-right: 40px;
+        .css-j204z7-MuiFormControlLabel-root {
+          margin-bottom: 0;
+        }
+        .css-9npbnl-MuiFormLabel-root-MuiInputLabel-root {
+          font-size: 16px;
+          font-weight: 400;
+        }
+      }
+    }
+  }
+}
+
+/* Landscape phones and portrait tablets */
+@media (min-width: 361px) and (max-width: 575px) {
+  .filter_parent {
+    width: 280px;
+    padding: 40px 30px;
+    top: -35px;
+    .filter_head {
+      margin-bottom: 30px;
+      h3 {
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 24.52px;
+      }
+      .arrow_icon {
+        width: 40px;
+        height: 40px;
+        line-height: 50px;
+      }
+    }
+    .availability_parent {
+      margin-bottom: 20px;
+      .css-1nrlq1o-MuiFormControl-root {
+        width: 100%;
+        .css-u4tvz2-MuiFormLabel-root {
+          padding-bottom: 10px;
+          margin-bottom: 18px;
+          border-bottom: 1px solid #d0d0d0;
+        }
+
+        .css-j204z7-MuiFormControlLabel-root {
+          padding-left: 18px;
+          margin-bottom: 15px;
+        }
+        .css-ahj2mt-MuiTypography-root {
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 24px;
+        }
+      }
+    }
+    .product_category_parent {
+      margin-bottom: 20px;
+      .css-u4tvz2-MuiFormLabel-root {
+        padding-bottom: 10px;
+        margin-bottom: 18px;
+      }
+      .css-j204z7-MuiFormControlLabel-root {
+        padding-left: 18px;
+        margin-bottom: 15px;
+      }
+      .css-ahj2mt-MuiTypography-root {
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 24px;
+      }
+    }
+    .price_range_parent {
+      .css-u4tvz2-MuiFormLabel-root {
+        padding-bottom: 10px;
+        margin-bottom: 18px;
+      }
+      .css-j204z7-MuiFormControlLabel-root {
+        margin-bottom: 15px;
+      }
+      .on_sale_field {
+        padding-left: 18px;
+        padding-right: 36px;
+        .css-j204z7-MuiFormControlLabel-root {
+          margin-bottom: 0;
+        }
+        .css-9npbnl-MuiFormLabel-root-MuiInputLabel-root {
+          font-size: 16px;
+          font-weight: 400;
+        }
+      }
+    }
+  }
+}
+
+/* Smaller phones */
+@media (max-width: 360px) {
+  .filter_parent {
+    width: 260px;
+    padding: 30px 20px;
+    top: -27px;
+    .filter_head {
+      margin-bottom: 20px;
+      h3 {
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 22.52px;
+      }
+      .arrow_icon {
+        width: 35px;
+        height: 35px;
+        line-height: 42px;
+        .css-i4bv87-MuiSvgIcon-root {
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+    .availability_parent {
+      margin-bottom: 18px;
+      .css-1nrlq1o-MuiFormControl-root {
+        width: 100%;
+        .css-u4tvz2-MuiFormLabel-root {
+          padding-bottom: 8px;
+          margin-bottom: 15px;
+          border-bottom: 1px solid #d0d0d0;
+        }
+
+        .css-j204z7-MuiFormControlLabel-root {
+          padding-left: 15px;
+          margin-bottom: 12px;
+        }
+        .css-ahj2mt-MuiTypography-root {
+          font-size: 15px;
+          font-weight: 400;
+          line-height: 20px;
+        }
+      }
+    }
+    .product_category_parent {
+      margin-bottom: 18px;
+      .css-u4tvz2-MuiFormLabel-root {
+        padding-bottom: 8px;
+        margin-bottom: 15px;
+      }
+      .css-j204z7-MuiFormControlLabel-root {
+        padding-left: 15px;
+        margin-bottom: 12px;
+      }
+      .css-ahj2mt-MuiTypography-root {
+        font-size: 15px;
+        font-weight: 400;
+        line-height: 20px;
+      }
+    }
+    .price_range_parent {
+      .css-u4tvz2-MuiFormLabel-root {
+        padding-bottom: 8px;
+        margin-bottom: 15px;
+      }
+      .css-j204z7-MuiFormControlLabel-root {
+        margin-bottom: 12px;
+      }
+      .on_sale_field {
+        padding-left: 16px;
+        padding-right: 32px;
+        .css-j204z7-MuiFormControlLabel-root {
+          margin-bottom: 0;
+        }
+        .css-9npbnl-MuiFormLabel-root-MuiInputLabel-root {
+          font-size: 15px;
+          font-weight: 400;
+        }
+      }
+    }
+  }
+}
+
+/* Smaller phones */
+@media (max-width: 320px) {
+  .filter_parent {
+    width: 235px;
+    padding: 25px 15px;
+    top: -25px;
+    .filter_head {
+      margin-bottom: 18px;
+      h3 {
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 20.52px;
+      }
+      .arrow_icon {
+        width: 30px;
+        height: 30px;
+        line-height: 36px;
+        .css-i4bv87-MuiSvgIcon-root {
+          width: 18px;
+          height: 18px;
+        }
+      }
+    }
+    .availability_parent {
+      margin-bottom: 15px;
+      .css-1nrlq1o-MuiFormControl-root {
+        width: 100%;
+        .css-u4tvz2-MuiFormLabel-root {
+          padding-bottom: 6px;
+          margin-bottom: 12px;
+          border-bottom: 1px solid #d0d0d0;
+        }
+
+        .css-j204z7-MuiFormControlLabel-root {
+          padding-left: 12px;
+          margin-bottom: 10px;
+        }
+        .css-ahj2mt-MuiTypography-root {
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 18px;
+        }
+      }
+    }
+    .product_category_parent {
+      margin-bottom: 15px;
+      .css-u4tvz2-MuiFormLabel-root {
+        padding-bottom: 6px;
+        margin-bottom: 12px;
+      }
+      .css-j204z7-MuiFormControlLabel-root {
+        padding-left: 12px;
+        margin-bottom: 10px;
+      }
+      .css-ahj2mt-MuiTypography-root {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 18px;
+      }
+    }
+    .price_range_parent {
+      .css-u4tvz2-MuiFormLabel-root {
+        padding-bottom: 6px;
+        margin-bottom: 12px;
+      }
+      .css-j204z7-MuiFormControlLabel-root {
+        margin-bottom: 10px;
+      }
+      .on_sale_field {
+        padding-left: 14px;
+        padding-right: 28px;
+        .css-j204z7-MuiFormControlLabel-root {
+          margin-bottom: 0;
+        }
+        .css-9npbnl-MuiFormLabel-root-MuiInputLabel-root {
+          font-size: 14px;
+          font-weight: 400;
+        }
+      }
+    }
+  }
+}

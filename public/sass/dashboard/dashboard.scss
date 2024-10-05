@@ -1,0 +1,118 @@
+@import "../base/variable.scss";
+@import "../base/mixin.scss";
+
+.dashboard_section {
+  .inner_section {
+    display: flex;
+    background-color: $primarybackground;
+    .left_section {
+      .inner_parent {
+        max-width: 100%;
+        padding: 20px;
+        border-right: 1px solid $navbarBorder;
+        height: 100vh;
+        .sidebar {
+          .sidebar_text {
+            margin-bottom: 30px;
+            .MuiTypography-root {
+              // font-family: Roboto;
+              font-size: 12px;
+              font-weight: 900;
+              line-height: 20px;
+              color: $primarySubtext;
+            }
+          }
+          .options {
+            li {
+              width: 100%;
+              padding: 15px;
+              border-radius: 14px;
+              a {
+                gap: 20px;
+                display: flex;
+              }
+              &.active {
+                transform: scale(1.1);
+                background-color: $white;
+                box-shadow: 0px 2px 5px 0px #26334d08;
+                .icon_area {
+                  color: $primaryBlue_color;
+                }
+                .text_area {
+                  .MuiTypography-root {
+                    color: $primaryBlue_color;
+                  }
+                }
+              }
+              .icon_area {
+                color: $icons;
+                width: 20px;
+                height: 20px;
+              }
+              .text_area {
+                .MuiTypography-root {
+                  // font-family: Roboto;
+                  font-size: 13px;
+                  font-weight: 700;
+                  line-height: 25px;
+                  color: $primarySubtext;
+                }
+              }
+              // &:hover {
+              //   transform: scale(1.1);
+              //   background-color: $white;
+              //   color: $secondaryBlue_color;
+              //   box-shadow: 0px 2px 5px 0px #26334d08;
+
+              //   .icon_area {
+              //     color: $primaryBlue_color;
+              //   }
+              //   .text_area {
+              //     .MuiTypography-root {
+              //       color: $primaryBlue_color;
+              //     }
+              //   }
+              // }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+@media (min-width: 1400px) and (max-width: 1599px) {
+}
+
+/* 1300 desktop only */
+@media (min-width: 1300px) and (max-width: 1399px) {
+}
+
+/* 1200 desktop only */
+@media (min-width: 1200px) and (max-width: 1299px) {
+}
+
+/* Landscape tablets and medium desktops */
+@media (min-width: 992px) and (max-width: 1199px) {
+}
+
+/* Landscape tablets and ipad */
+@media (min-width: 768px) and (max-width: 991px) {
+  .dashboard_section {
+    .inner_section {
+      .left_section {
+        width: 170px;
+        .inner_parent {
+          padding: 14px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .dashboard_section {
+    .left_section {
+      display: none;
+    }
+  }
+}

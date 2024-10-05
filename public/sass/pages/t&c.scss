@@ -1,0 +1,853 @@
+@import "../helper/reset.scss";
+
+.cms_section {
+  position: relative;
+  overflow: hidden;
+  .top_effect {
+    position: absolute;
+    top: -163px;
+    left: -62px;
+    z-index: -1;
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+  .cms_parent {
+    padding: 50px 60px 90px 60px;
+    .cms_child {
+      padding: 70px 35px 60px 35px;
+      background-color: $tertiaryBackground;
+      border: 1px solid $quaternaryBorder;
+      border-radius: 10px;
+      .title_area {
+        h1 {
+          font-family: Clash_Display;
+          font-size: 32px;
+          font-weight: 700;
+          line-height: 39.36px;
+          letter-spacing: 0.08em;
+          text-align: center;
+          color: $quaternaryText;
+          margin-bottom: 60px;
+        }
+      }
+      .detail_area {
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+          font-family: Clash_Display;
+          font-size: 16px;
+          font-weight: 700;
+          letter-spacing: 0.08em;
+          color: $quaternaryText;
+          line-height: 19.68px;
+          margin-bottom: 20px;
+        }
+        h1 {
+          font-size: 32px;
+          line-height: 32px;
+        }
+        h2 {
+          font-size: 28px;
+          line-height: 30px;
+        }
+        h3 {
+          font-size: 24px;
+          line-height: 26px;
+        }
+        h4 {
+          font-size: 20px;
+          line-height: 22px;
+        }
+        h5 {
+          font-size: 18px;
+          line-height: 20px;
+        }
+        h6 {
+          font-size: 16px;
+          line-height: 18px;
+        }
+
+        p {
+          font-family: Poppins;
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 21px;
+          text-align: justify;
+          margin-bottom: 80px;
+          letter-spacing: 0.08em;
+          color: $quaternaryText;
+          &:last-child {
+            margin-bottom: 0px;
+          }
+        }
+
+        ul {
+          margin-bottom: 20px;
+          padding-left: 30px;
+          li {
+            font-family: Poppins;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 19.68px;
+            letter-spacing: 0.08em;
+            color: $quaternaryText;
+            margin-bottom: 0;
+            position: relative;
+            &::before {
+              content: "•";
+              font-size: 32px;
+              font-weight: 700;
+              line-height: 23px;
+              color: #ffc727;
+              margin-left: -30px;
+              position: absolute;
+              top: 0;
+              left: 0;
+              bottom: 0;
+            }
+          }
+        }
+
+        ol {
+          margin-bottom: 20px;
+          padding-left: 20px;
+          li {
+            font-family: Poppins;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 19.68px;
+            letter-spacing: 0.08em;
+            color: $quaternaryText;
+            margin-bottom: 0;
+            padding-left: 10px;
+          }
+        }
+
+        .table {
+          overflow-x: auto;
+          table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid black;
+            margin-bottom: 20px;
+            thead {
+              tr {
+                th {
+                  font-family: Clash_Display;
+                  font-size: 16px;
+                  font-weight: 700;
+                  letter-spacing: 0.08em;
+                  color: $quaternaryText;
+                  line-height: 19.68px;
+                  padding: 10px;
+                  border: 1px solid black;
+                }
+              }
+            }
+            tbody {
+              tr {
+                td {
+                  font-family: Poppins;
+                  font-size: 16px;
+                  font-weight: 400;
+                  letter-spacing: 0.08em;
+                  color: $quaternaryText;
+                  line-height: 19.68px;
+                  padding: 10px;
+                  border: 1px solid black;
+                }
+              }
+            }
+            tfoot {
+              tr {
+                td {
+                  font-family: Poppins;
+                  font-size: 16px;
+                  font-weight: 400;
+                  letter-spacing: 0.08em;
+                  color: $quaternaryText;
+                  line-height: 19.68px;
+                  padding: 10px;
+                  border: 1px solid black;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      &.faq_child {
+        padding: 70px 90px 60px 90px;
+        .accordion_area {
+          .css-1086bdv-MuiPaper-root-MuiAccordion-root {
+            margin-bottom: 20px;
+            border-radius: 10px;
+            background-color: $white;
+            box-shadow: 2px 4px 16px 0px #1e1e1e1a;
+            &:last-child {
+              margin-bottom: 0px;
+            }
+          }
+          .css-1086bdv-MuiPaper-root-MuiAccordion-root::before {
+            height: 0;
+          }
+          .css-eqpfi5-MuiAccordionSummary-content {
+            font-family: Clash_Display;
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 19.68px;
+            letter-spacing: 0.08em;
+          }
+          .css-yw020d-MuiAccordionSummary-expandIconWrapper {
+            transition: 0.1s ease-in-out;
+          }
+          .css-yw020d-MuiAccordionSummary-expandIconWrapper.Mui-expanded {
+            transform: none;
+          }
+          .css-15v22id-MuiAccordionDetails-root {
+            font-family: Poppins;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 21px;
+          }
+        }
+      }
+    }
+  }
+  .bottom_effect {
+    position: absolute;
+    right: -40px;
+    bottom: -276px;
+    z-index: -1;
+  }
+}
+
+/* Extra Huge large desktops */
+@media (min-width: 1920px) {
+}
+
+/* Extra Huge large desktops */
+@media (min-width: 1680px) and (max-width: 1919px) {
+}
+
+/* Extra Huge large desktops */
+@media (min-width: 1600px) and (max-width: 1679px) {
+}
+
+/* Extra large desktops and mac laptops*/
+@media (min-width: 1400px) and (max-width: 1599px) {
+}
+
+/* Landscape tablets and medium desktops */
+@media (min-width: 992px) and (max-width: 1199px) {
+}
+
+/* Landscape tablets and ipad */
+@media (min-width: 768px) and (max-width: 991px) {
+  .cms_section {
+    .cms_parent {
+      padding: 50px 40px 60px 40px;
+      .cms_child {
+        padding: 50px 35px 40px 35px;
+        .title_area {
+          h1 {
+            font-size: 30px;
+            font-weight: 700;
+            line-height: 34.36px;
+            margin-bottom: 50px;
+          }
+        }
+        .detail_area {
+          h1,
+          h2,
+          h3,
+          h4,
+          h5,
+          h6 {
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 19.68px;
+            margin-bottom: 18px;
+          }
+
+          p {
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 21px;
+            margin-bottom: 50px;
+          }
+        }
+
+        &.faq_child {
+          padding: 45px 50px 40px 50px;
+          .accordion_area {
+            .css-1086bdv-MuiPaper-root-MuiAccordion-root {
+              margin-bottom: 20px;
+              border-radius: 10px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Landscape phones and portrait tablets */
+@media (min-width: 576px) and (max-width: 767px) {
+  .cms_section {
+    .cms_parent {
+      padding: 45px 20px 50px 20px;
+      .cms_child {
+        padding: 45px 30px 35px 30px;
+        .title_area {
+          h1 {
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 32.36px;
+            margin-bottom: 45px;
+          }
+        }
+        .detail_area {
+          h1,
+          h2,
+          h3,
+          h4,
+          h5,
+          h6 {
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 19.68px;
+            margin-bottom: 15px;
+          }
+          h1 {
+            font-size: 28px;
+            line-height: 30px;
+          }
+          h2 {
+            font-size: 26px;
+            line-height: 28px;
+          }
+          h3 {
+            font-size: 24px;
+            line-height: 26px;
+          }
+          h4 {
+            font-size: 20px;
+            line-height: 22px;
+          }
+          h5 {
+            font-size: 18px;
+            line-height: 20px;
+          }
+          h6 {
+            font-size: 16px;
+            line-height: 18px;
+          }
+
+          p {
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 21px;
+            margin-bottom: 45px;
+          }
+
+          ul {
+            margin-bottom: 20px;
+            padding-left: 30px;
+            li {
+              font-size: 16px;
+              font-weight: 400;
+              line-height: 19.68px;
+              &::before {
+                content: "•";
+                font-size: 32px;
+                font-weight: 700;
+                line-height: 23px;
+                margin-left: -30px;
+              }
+            }
+          }
+
+          ol {
+            margin-bottom: 20px;
+            padding-left: 20px;
+            li {
+              font-size: 16px;
+              font-weight: 400;
+              line-height: 19.68px;
+            }
+          }
+
+          .table {
+            table {
+              margin-bottom: 20px;
+              thead {
+                tr {
+                  th {
+                    font-size: 16px;
+                    font-weight: 700;
+                    line-height: 19.68px;
+                    padding: 10px;
+                  }
+                }
+              }
+              tbody {
+                tr {
+                  td {
+                    font-size: 16px;
+                    font-weight: 400;
+                    line-height: 19.68px;
+                    padding: 10px;
+                  }
+                }
+              }
+              tfoot {
+                tr {
+                  td {
+                    font-size: 16px;
+                    font-weight: 400;
+                    line-height: 19.68px;
+                    padding: 10px;
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        &.faq_child {
+          padding: 40px 45px 35px 45px;
+          .accordion_area {
+            .css-1086bdv-MuiPaper-root-MuiAccordion-root {
+              margin-bottom: 20px;
+              border-radius: 10px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Landscape phones and portrait tablets */
+@media (min-width: 361px) and (max-width: 575px) {
+  .cms_section {
+    .cms_parent {
+      padding: 35px 0px 40px 0px;
+      .cms_child {
+        padding: 35px 23px 30px 23px;
+        border-radius: 8px;
+        .title_area {
+          h1 {
+            font-size: 26px;
+            font-weight: 700;
+            line-height: 30.36px;
+            margin-bottom: 35px;
+          }
+        }
+        .detail_area {
+          h1,
+          h2,
+          h3,
+          h4,
+          h5,
+          h6 {
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 19.68px;
+            margin-bottom: 12px;
+          }
+          h1 {
+            font-size: 26px;
+            line-height: 28px;
+          }
+          h2 {
+            font-size: 24px;
+            line-height: 26px;
+          }
+          h3 {
+            font-size: 22px;
+            line-height: 24px;
+          }
+          h4 {
+            font-size: 20px;
+            line-height: 22px;
+          }
+          h5 {
+            font-size: 18px;
+            line-height: 20px;
+          }
+          h6 {
+            font-size: 16px;
+            line-height: 18px;
+          }
+
+          p {
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 21px;
+            letter-spacing: 0.04em;
+            margin-bottom: 35px;
+          }
+
+          ul {
+            margin-bottom: 18px;
+            padding-left: 30px;
+            li {
+              font-size: 16px;
+              font-weight: 400;
+              line-height: 19.68px;
+              &::before {
+                content: "•";
+                font-size: 32px;
+                font-weight: 700;
+                line-height: 23px;
+                margin-left: -30px;
+              }
+            }
+          }
+
+          ol {
+            margin-bottom: 18px;
+            padding-left: 20px;
+            li {
+              font-size: 16px;
+              font-weight: 400;
+              line-height: 19.68px;
+            }
+          }
+
+          .table {
+            table {
+              margin-bottom: 18px;
+              thead {
+                tr {
+                  th {
+                    font-size: 16px;
+                    font-weight: 700;
+                    line-height: 19.68px;
+                    padding: 10px;
+                  }
+                }
+              }
+              tbody {
+                tr {
+                  td {
+                    font-size: 16px;
+                    font-weight: 400;
+                    line-height: 19.68px;
+                    padding: 10px;
+                  }
+                }
+              }
+              tfoot {
+                tr {
+                  td {
+                    font-size: 16px;
+                    font-weight: 400;
+                    line-height: 19.68px;
+                    padding: 10px;
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        &.faq_child {
+          padding: 30px 20px 25px 20px;
+          .accordion_area {
+            .css-1086bdv-MuiPaper-root-MuiAccordion-root {
+              margin-bottom: 18px;
+              border-radius: 8px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Smaller phones */
+@media (max-width: 360px) {
+  .cms_section {
+    .cms_parent {
+      padding: 30px 0px 35px 0px;
+      .cms_child {
+        padding: 30px 20px 25px 20px;
+        border-radius: 8px;
+        .title_area {
+          h1 {
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 28.36px;
+            margin-bottom: 30px;
+          }
+        }
+        .detail_area {
+          h1,
+          h2,
+          h3,
+          h4,
+          h5,
+          h6 {
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 19.68px;
+            margin-bottom: 10px;
+          }
+          h1 {
+            font-size: 24px;
+            line-height: 26px;
+          }
+          h2 {
+            font-size: 22px;
+            line-height: 24px;
+          }
+          h3 {
+            font-size: 20px;
+            line-height: 22px;
+          }
+          h4 {
+            font-size: 19px;
+            line-height: 21px;
+          }
+          h5 {
+            font-size: 17px;
+            line-height: 19px;
+          }
+          h6 {
+            font-size: 16px;
+            line-height: 18px;
+          }
+
+          p {
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 21px;
+            letter-spacing: 0.04em;
+            margin-bottom: 30px;
+          }
+
+          ul {
+            margin-bottom: 18px;
+            padding-left: 30px;
+            li {
+              font-size: 16px;
+              font-weight: 400;
+              line-height: 19.68px;
+              &::before {
+                content: "•";
+                font-size: 32px;
+                font-weight: 700;
+                line-height: 23px;
+                margin-left: -30px;
+              }
+            }
+          }
+
+          ol {
+            margin-bottom: 18px;
+            padding-left: 20px;
+            li {
+              font-size: 16px;
+              font-weight: 400;
+              line-height: 19.68px;
+            }
+          }
+
+          .table {
+            table {
+              margin-bottom: 18px;
+              thead {
+                tr {
+                  th {
+                    font-size: 16px;
+                    font-weight: 700;
+                    line-height: 19.68px;
+                    padding: 8px;
+                  }
+                }
+              }
+              tbody {
+                tr {
+                  td {
+                    font-size: 16px;
+                    font-weight: 400;
+                    line-height: 19.68px;
+                    padding: 8px;
+                  }
+                }
+              }
+              tfoot {
+                tr {
+                  td {
+                    font-size: 16px;
+                    font-weight: 400;
+                    line-height: 19.68px;
+                    padding: 8px;
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        &.faq_child {
+          padding: 28px 18px 24px 18px;
+          .accordion_area {
+            .css-1086bdv-MuiPaper-root-MuiAccordion-root {
+              margin-bottom: 18px;
+              border-radius: 8px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Smaller phones */
+@media (max-width: 320px) {
+  .cms_section {
+    .cms_parent {
+      padding: 25px 0px 30px 0px;
+      .cms_child {
+        padding: 25px 18px 20px 18px;
+        border-radius: 8px;
+        .title_area {
+          h1 {
+            font-size: 22px;
+            font-weight: 700;
+            line-height: 26.36px;
+            margin-bottom: 25px;
+          }
+        }
+        .detail_area {
+          h1,
+          h2,
+          h3,
+          h4,
+          h5,
+          h6 {
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 19.68px;
+            margin-bottom: 8px;
+          }
+          h1 {
+            font-size: 22px;
+            line-height: 24px;
+          }
+          h2 {
+            font-size: 20px;
+            line-height: 22px;
+          }
+          h3 {
+            font-size: 19px;
+            line-height: 21px;
+          }
+          h4 {
+            font-size: 18px;
+            line-height: 20px;
+          }
+          h5 {
+            font-size: 17px;
+            line-height: 19px;
+          }
+          h6 {
+            font-size: 16px;
+            line-height: 18px;
+          }
+
+          p {
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 21px;
+            letter-spacing: 0.04em;
+            margin-bottom: 25px;
+          }
+
+          ul {
+            margin-bottom: 18px;
+            padding-left: 30px;
+            li {
+              font-size: 16px;
+              font-weight: 400;
+              line-height: 19.68px;
+              &::before {
+                content: "•";
+                font-size: 32px;
+                font-weight: 700;
+                line-height: 23px;
+                margin-left: -30px;
+              }
+            }
+          }
+
+          ol {
+            margin-bottom: 18px;
+            padding-left: 20px;
+            li {
+              font-size: 16px;
+              font-weight: 400;
+              line-height: 19.68px;
+            }
+          }
+
+          .table {
+            table {
+              margin-bottom: 18px;
+              thead {
+                tr {
+                  th {
+                    font-size: 16px;
+                    font-weight: 700;
+                    line-height: 19.68px;
+                    padding: 8px;
+                  }
+                }
+              }
+              tbody {
+                tr {
+                  td {
+                    font-size: 16px;
+                    font-weight: 400;
+                    line-height: 19.68px;
+                    padding: 8px;
+                  }
+                }
+              }
+              tfoot {
+                tr {
+                  td {
+                    font-size: 16px;
+                    font-weight: 400;
+                    line-height: 19.68px;
+                    padding: 8px;
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        &.faq_child {
+          padding: 25px 18px 20px 18px;
+          .accordion_area {
+            .css-1086bdv-MuiPaper-root-MuiAccordion-root {
+              margin-bottom: 18px;
+              border-radius: 8px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

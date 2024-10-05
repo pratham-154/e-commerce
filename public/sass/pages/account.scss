@@ -1,0 +1,324 @@
+@import "../helper/reset.scss";
+
+.account_section {
+  overflow: hidden;
+  .account_top_design {
+    width: 450px;
+    height: 890px;
+    position: absolute;
+    top: -150px;
+    left: 0;
+    z-index: -1;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  .account_bottom_design {
+    width: 470px;
+    height: 920px;
+    position: absolute;
+    bottom: -500px;
+    right: 0;
+    z-index: -1;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  .account_parent {
+    border-bottom: 1px solid #d0d0d0;
+    .account_heading {
+      display: flex;
+      align-items: center;
+      padding: 20px 0px;
+      .css-i4bv87-MuiSvgIcon-root {
+        width: 24px;
+        height: 24px;
+        color: $quaternaryText;
+      }
+      h1 {
+        font-family: Clash_Display;
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 29.52px;
+        letter-spacing: 0.08em;
+        color: $quaternaryText;
+        margin-left: 30px;
+      }
+    }
+  }
+  .account_box_section {
+    padding-top: 50px;
+    padding-bottom: 90px;
+    .account_box_parent {
+      display: flex;
+      justify-content: center;
+      .account_box_child {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        max-width: 1060px;
+        height: 800px;
+        background-color: #ffedbd40;
+        box-shadow: 4px 4px 8px 0px #02282c14;
+        border-radius: 30px;
+        padding: 20px 10px;
+        .account_box {
+          .profile_box {
+            width: 100%;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            background: #ffe292;
+            border-radius: 8px;
+            padding: 20px 40px;
+            box-shadow: 2px 4px 10px 0px #1e1e1e08;
+            margin-bottom: 10px;
+            .profile_image {
+              width: 60px;
+              height: 60px;
+              border-radius: 50%;
+              img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 50%;
+              }
+            }
+            .profile_name {
+              margin-left: 12px;
+              h6 {
+                font-family: Poppins;
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 21px;
+                color: #4d4d4d;
+              }
+              h5 {
+                font-family: Poppins;
+                font-size: 16px;
+                font-weight: 400;
+                line-height: 24px;
+                color: $black;
+              }
+            }
+          }
+          .sidebar_box {
+            width: 100%;
+            height: 650px;
+            background: #033439;
+            border-radius: 8px;
+            padding: 50px 30px;
+            ul {
+              li {
+                display: flex;
+                align-items: center;
+                .css-i4bv87-MuiSvgIcon-root {
+                  width: 24px;
+                  height: 24px;
+                  color: $secondaryText;
+                  margin-right: 30px;
+                }
+                font-family: Poppins;
+                font-size: 16px;
+                font-weight: 400;
+                line-height: 24px;
+                color: $secondaryText;
+                text-wrap: nowrap;
+                padding: 9px 12px;
+                margin-bottom: 18px;
+                &:hover {
+                  color: $quaternaryText;
+                  background-color: #ffe292;
+                  border-radius: 4px;
+                  transition: all 0.3s ease-in-out;
+                  .css-i4bv87-MuiSvgIcon-root {
+                    color: $quaternaryText;
+                    transition: all 0.3s ease-in-out;
+                  }
+                }
+              }
+            }
+            // &.active {
+            //   ul {
+            //     li {
+            //       color: $secondaryText;
+            //     }
+            //   }
+            // }
+            // &.inactive {
+            //   ul {
+            //     li {
+            //       color: $quaternaryText;
+            //       background-color: #ffe292;
+            //     }
+            //   }
+            // }
+          }
+        }
+        // .my_profile_box_parent {
+        //   width: 100%;
+        //   height: 760px;
+        //   background-color: #ffffff;
+        //   border-radius: 12px;
+        //   box-shadow: 0px 4px 2px 0px #1e1e1e14;
+        //   margin-left: 10px;
+        //   .my_profile_heading {
+        //     padding: 25px 40px;
+        //     box-shadow: 2px 4px 10px 0px #1e1e1e08;
+        //     h3 {
+        //       font-family: Clash_Display;
+        //       font-size: 24px;
+        //       font-weight: 700;
+        //       line-height: 29.52px;
+        //       letter-spacing: 0.08em;
+        //       color: $quaternaryText;
+        //     }
+        //   }
+        //   .my_profile_box {
+        //     padding: 30px 40px;
+        //     .my_profile_about {
+        //       display: flex;
+        //       align-items: center;
+        //       border: 0.5px solid #d0d0d0;
+        //       box-shadow: 2px 4px 10px 0px #1e1e1e08;
+        //       border-radius: 12px;
+        //       padding: 20px 40px;
+        //       margin-bottom: 20px;
+        //       .my_profile_image {
+        //         width: 80px;
+        //         height: 80px;
+        //         border-radius: 50%;
+        //         border: 0.2px solid #4d4d4d;
+        //         img {
+        //           width: 100%;
+        //           height: 100%;
+        //           object-fit: cover;
+        //           border-radius: 50%;
+        //         }
+        //       }
+        //       .my_profile_name {
+        //         flex-grow: 1;
+        //         margin-left: 10px;
+        //         h4 {
+        //           font-family: Poppins;
+        //           font-size: 20px;
+        //           font-weight: 500;
+        //           line-height: 30px;
+        //           color: $black;
+        //         }
+        //         h6 {
+        //           font-family: Poppins;
+        //           font-size: 14px;
+        //           font-weight: 400;
+        //           line-height: 21px;
+        //           color: #4d4d4d;
+        //         }
+        //       }
+        //       .edit_button {
+        //         .css-sghohy-MuiButtonBase-root-MuiButton-root {
+        //           font-family: Poppins;
+        //           font-size: 13px;
+        //           font-weight: 400;
+        //           line-height: 19.5px;
+        //           color: $secondaryText;
+        //           background-color: $primaryBackground;
+        //           border-radius: 20px;
+        //           padding: 8px 12px;
+        //           .css-i4bv87-MuiSvgIcon-root {
+        //             width: 16px;
+        //             height: 16px;
+        //             color: $secondaryText;
+        //           }
+        //         }
+        //       }
+        //     }
+        //     .personal_information_parent {
+        //       height: 480px;
+        //       border: 0.5px solid #d0d0d0;
+        //       box-shadow: 2px 4px 10px 0px #1e1e1e08;
+        //       border-radius: 12px;
+        //       padding: 30px 45px;
+        //       .personal_information_heading {
+        //         h6 {
+        //           font-family: Poppins;
+        //           font-size: 16px;
+        //           font-weight: 500;
+        //           line-height: 24px;
+        //           color: $black;
+        //           margin-bottom: 45px;
+        //         }
+        //         .personal_information_credentials_parent {
+        //           display: flex;
+        //           align-items: center;
+        //           .personal_information_credentials {
+        //             margin-bottom: 40px;
+        //             width: 50%;
+        //             h6 {
+        //               font-family: Poppins;
+        //               font-size: 12px;
+        //               font-weight: 400;
+        //               line-height: 18px;
+        //               color: #808080;
+        //               margin-bottom: 8px;
+        //             }
+        //             h5 {
+        //               font-family: Poppins;
+        //               font-size: 14px;
+        //               font-weight: 400;
+        //               line-height: 21px;
+        //               color: $quaternaryText;
+        //             }
+        //           }
+        //         }
+        //       }
+        //     }
+        //   }
+        // }
+      }
+    }
+  }
+}
+
+/* Extra Huge large desktops */
+@media (min-width: 1920px) {
+}
+
+/* Extra Huge large desktops */
+@media (min-width: 1680px) and (max-width: 1919px) {
+}
+
+/* Extra Huge large desktops */
+@media (min-width: 1600px) and (max-width: 1679px) {
+}
+
+/* Extra large desktops and mac laptops*/
+@media (min-width: 1400px) and (max-width: 1599px) {
+}
+
+/* Landscape tablets and medium desktops */
+@media (min-width: 992px) and (max-width: 1199px) {
+}
+
+/* Landscape tablets and ipad */
+@media (min-width: 768px) and (max-width: 991px) {
+}
+
+/* Landscape phones and portrait tablets */
+@media (min-width: 576px) and (max-width: 767px) {
+}
+
+/* Landscape phones and portrait tablets */
+@media (min-width: 361px) and (max-width: 575px) {
+}
+
+/* Smaller phones */
+@media (max-width: 360px) {
+}
+
+/* Smaller phones */
+@media (max-width: 320px) {
+}
