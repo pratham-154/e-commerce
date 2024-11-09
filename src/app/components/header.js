@@ -22,33 +22,33 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const Header = () => {
+  const pathname = usePathname();
   const [show, setShow] = useState(false);
+  const [activePath, setActivePath] = useState(pathname);
 
   const nav = [
-    { name: "Home", path: "#" },
-    { name: "New Arrivals", path: "#" },
-    { name: "Products", path: "#" },
+    { name: "Home", path: "/homepage" },
+    { name: "New Arrivals", path: "/new-arrivals" },
+    { name: "Products", path: "/products" },
     { name: "Collections", path: "#" },
-    { name: "About Us", path: "#" },
+    { name: "About Us", path: "/about-us" },
   ];
-
-  const pathname = usePathname();
 
   const menus = [
     {
       icon: <HomeRoundedIcon />,
       name: "Home",
-      path: "#",
+      path: "/homepage",
     },
     {
       icon: <VerifiedUserRoundedIcon />,
       name: "New Arrivals",
-      path: "#",
+      path: "/new-arrivals",
     },
     {
       icon: <InventoryRoundedIcon />,
       name: "Products",
-      path: "#",
+      path: "/products",
     },
     {
       icon: <CollectionsRoundedIcon />,
@@ -58,7 +58,7 @@ const Header = () => {
     {
       icon: <InfoRoundedIcon />,
       name: "About Us",
-      path: "#",
+      path: "/about-us",
     },
     {
       icon: <PersonIcon />,
@@ -92,6 +92,11 @@ const Header = () => {
     setShow(false);
   };
 
+  const handleLinkClick = (path) => {
+    setActivePath(path);
+    closeMenu();
+  };
+
   return (
     <div className="header_section">
       <Container>
@@ -118,12 +123,12 @@ const Header = () => {
                 <div className="right_side_tab">
                   <ul className="right_side_menu">
                     <li className="login">
-                      <Link className="login_btn" href="#">
+                      <Link className="login_btn" href="/auth/login">
                         Login
                       </Link>
                     </li>
                     <li className="sign_up">
-                      <Link className="sign_up_btn" href="#">
+                      <Link className="sign_up_btn" href="/auth/sign-up">
                         Sign Up
                       </Link>
                     </li>
@@ -146,7 +151,11 @@ const Header = () => {
               <ul className="nav_bar">
                 {nav.map((item, index) => (
                   <li key={index}>
-                    <Link href={item.path} onClick={closeMenu}>
+                    <Link
+                      href={item.path}
+                      onClick={() => handleLinkClick(item.path)}
+                      className={activePath === item.path ? "active" : ""}
+                    >
                       {item.name}
                     </Link>
                   </li>
@@ -174,9 +183,8 @@ const Header = () => {
                     <ul className="menu_bar">
                       {menus.map((menu, index) => {
                         const isActive = Array.isArray(menu.path)
-                          ? menu.path.some((p) => pathname === p)
-                          : pathname === menu.path;
-
+                          ? menu.path.includes(activePath)
+                          : activePath === menu.path;
                         return (
                           <li key={index}>
                             <Link
@@ -186,7 +194,13 @@ const Header = () => {
                                   : menu.path
                               }
                               className={isActive ? "active" : ""}
-                              onClick={closeMenu}
+                              onClick={() =>
+                                handleLinkClick(
+                                  Array.isArray(menu.path)
+                                    ? menu.path[0]
+                                    : menu.path
+                                )
+                              }
                             >
                               {menu.icon}
                               {menu.name}
@@ -198,12 +212,15 @@ const Header = () => {
                     <div className="menu_side_tab">
                       <ul className="menu_side_menu">
                         <li className="menu_login">
-                          <Link className="menu_login_btn" href="#">
+                          <Link className="menu_login_btn" href="/auth/login">
                             Login
                           </Link>
                         </li>
                         <li className="menu_sign_up">
-                          <Link className="menu_sign_up_btn" href="#">
+                          <Link
+                            className="menu_sign_up_btn"
+                            href="/auth/sign-up"
+                          >
                             Sign Up
                           </Link>
                         </li>

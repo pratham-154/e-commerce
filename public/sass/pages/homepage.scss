@@ -272,23 +272,6 @@
               text-align: center;
               margin-bottom: 0px;
             }
-            &.curls {
-              .hair_items {
-                background-color: $mudBackground;
-              }
-              img {
-                object-fit: contain;
-              }
-            }
-            &.brush {
-              .hair_items {
-                background-color: $brushBackground;
-              }
-              img {
-                object-fit: contain;
-                transform: rotate(-45deg);
-              }
-            }
           }
         }
         .prev1 {
@@ -458,6 +441,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            border-radius: 50%;
           }
         }
         .double_quotes {

@@ -1,13 +1,58 @@
+"use client";
 import Image from "next/image";
-import { Container, Grid, Typography } from "@mui/material";
+import { Container, Grid } from "@mui/material";
 import "../../../public/sass/pages/footer.scss";
 import FooterLogo from "../../../public/images/footer_logo.png";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import Link from "next/link";
+import { useState } from "react";
 
 const Footer = () => {
+  const [activeLink, setActiveLink] = useState("");
+
+  const services = [
+    {
+      path: "/products",
+      name: "Product",
+    },
+    {
+      path: "#",
+      name: "Collection",
+    },
+  ];
+
+  const usefulLinks = [
+    {
+      path: "/cms/t&c",
+      name: "Terms & Conditions",
+    },
+    {
+      path: "/cms/privacy-policy",
+      name: "Privacy Policy",
+    },
+    {
+      path: "/cms/faq",
+      name: "FAQ's",
+    },
+  ];
+
+  const quickLinks = [
+    {
+      path: "#",
+      name: "Cancelations",
+    },
+    {
+      path: "#",
+      name: "Returns",
+    },
+  ];
+
+  const handleLinkClick = (path) => {
+    setActiveLink(path);
+  };
+
   return (
     <div className="footer_section">
       <Container>
@@ -29,22 +74,22 @@ const Footer = () => {
                   <Grid container spacing={1}>
                     <Grid item xl={3} lg={3} md={3} sm={3} xs={6}>
                       <div className="footer_content social_icons">
-                        <h3 className="heading">Follow US</h3>
-                        <ul className="heading_list">
-                          <li className="heading_list_items">
-                            <Link className="heading_list_content" href="#">
+                        <h3>Follow Us</h3>
+                        <ul>
+                          <li>
+                            <Link href="https://www.facebook.com/">
                               <FacebookIcon className="facebook_icon" />
                               Facebook
                             </Link>
                           </li>
-                          <li className="heading_list_items">
-                            <Link className="heading_list_content" href="#">
+                          <li>
+                            <Link href="https://www.instagram.com/">
                               <InstagramIcon className="instagram_icon" />
                               Instagram
                             </Link>
                           </li>
-                          <li className="heading_list_items">
-                            <Link className="heading_list_content" href="#">
+                          <li>
+                            <Link href="https://x.com/?lang=en">
                               <TwitterIcon className="twitter_icon" />
                               Twitter
                             </Link>
@@ -54,58 +99,67 @@ const Footer = () => {
                     </Grid>
                     <Grid item xl={3} lg={3} md={3} sm={3} xs={6}>
                       <div className="footer_content">
-                        <h3 className="heading">Services</h3>
-                        <ul className="heading_list">
-                          <li className="heading_list_items">
-                            <Link className="heading_list_content" href="#">
-                              {/* <KeyboardDoubleArrowRightRoundedIcon className="arrow_icon" /> */}
-                              Products
-                            </Link>
-                          </li>
-                          <li className="heading_list_items">
-                            <Link className="heading_list_content" href="#">
-                              Collections
-                            </Link>
-                          </li>
+                        <h3>Services</h3>
+                        <ul>
+                          {services.map((item, index) => (
+                            <li
+                              className={
+                                activeLink === item.path ? "active" : ""
+                              }
+                              key={index}
+                            >
+                              <Link
+                                href={item.path}
+                                onClick={() => handleLinkClick(item.path)}
+                              >
+                                {item.name}
+                              </Link>
+                            </li>
+                          ))}
                         </ul>
                       </div>
                     </Grid>
                     <Grid item xl={3} lg={3} md={3} sm={3} xs={6}>
                       <div className="footer_content">
-                        <h3 className="heading">Useful Links</h3>
-                        <ul className="heading_list">
-                          <li className="heading_list_items">
-                            <Link className="heading_list_content" href="#">
-                              Terms & Conditions
-                            </Link>
-                          </li>
-                          <li className="heading_list_items">
-                            <Link className="heading_list_content" href="#">
-                              Privacy Policy
-                            </Link>
-                          </li>
-                          <li className="heading_list_items">
-                            <Link className="heading_list_content" href="#">
-                              FAQ's
-                            </Link>
-                          </li>
+                        <h3>Useful Links</h3>
+                        <ul>
+                          {usefulLinks.map((item, index) => (
+                            <li
+                              className={
+                                activeLink === item.path ? "active" : ""
+                              }
+                              key={index}
+                            >
+                              <Link
+                                href={item.path}
+                                onClick={() => handleLinkClick(item.path)}
+                              >
+                                {item.name}
+                              </Link>
+                            </li>
+                          ))}
                         </ul>
                       </div>
                     </Grid>
                     <Grid item xl={3} lg={3} md={3} sm={3} xs={6}>
                       <div className="footer_content">
-                        <h3 className="heading">Quick Links</h3>
-                        <ul className="heading_list">
-                          <li className="heading_list_items">
-                            <Link className="heading_list_content" href="#">
-                              Cancellations
-                            </Link>
-                          </li>
-                          <li className="heading_list_items">
-                            <Link className="heading_list_content" href="#">
-                              Returns
-                            </Link>
-                          </li>
+                        <h3>Quick Links</h3>
+                        <ul>
+                          {quickLinks.map((item, index) => (
+                            <li
+                              className={
+                                activeLink === item.path ? "active" : ""
+                              }
+                              key={index}
+                            >
+                              <Link
+                                href={item.path}
+                                onClick={() => handleLinkClick(item.path)}
+                              >
+                                {item.name}
+                              </Link>
+                            </li>
+                          ))}
                         </ul>
                       </div>
                     </Grid>

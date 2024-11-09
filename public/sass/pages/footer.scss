@@ -18,7 +18,7 @@
       }
     }
     .footer_content {
-      .heading {
+      h3 {
         color: $secondaryText;
         font-family: Poppins;
         font-size: 16px;
@@ -26,10 +26,10 @@
         line-height: 24px;
         margin-bottom: 12px;
       }
-      .heading_list {
+      ul {
         list-style-type: none;
-        .heading_list_items {
-          .heading_list_content {
+        li {
+          a {
             color: $secondaryText;
             font-family: Poppins;
             font-size: 14px;
@@ -48,8 +48,26 @@
               margin-right: 8px;
             }
           }
+          &.active {
+            a {
+              color: $hoverText;
+              position: relative;
+              margin-left: 10px;
+              padding-left: 10px;
+              &::before {
+                content: ">>";
+                font-size: 14px;
+                display: block;
+                position: absolute;
+                margin-left: -10px;
+                top: 0;
+                bottom: 0;
+                left: 0;
+              }
+            }
+          }
           &:hover {
-            .heading_list_content {
+            a {
               color: $hoverText;
               position: relative;
               margin-left: 10px;
@@ -77,14 +95,14 @@
           }
         }
       }
-      &.social_icons{
-        .heading_list{
-          .heading_list_items{
-            .heading_list_content{
+      &.social_icons {
+        ul {
+          li {
+            a {
               padding-left: 0;
               margin-left: 0;
-              &:hover{
-                &::before{
+              &:hover {
+                &::before {
                   display: none;
                 }
               }
@@ -130,13 +148,13 @@
         width: 129px;
       }
       .footer_content {
-        .heading {
+        h3 {
           line-height: 22px;
         }
-        .heading_list {
+        ul {
           list-style-type: none;
-          .heading_list_items {
-            .heading_list_content {
+          li {
+            a {
               line-height: 20px;
               .facebook_icon {
                 margin-right: 7px;
@@ -165,13 +183,13 @@
         width: 119px;
       }
       .footer_content {
-        .heading {
+        h3 {
           line-height: 20px;
         }
-        .heading_list {
+        ul {
           list-style-type: none;
-          .heading_list_items {
-            .heading_list_content {
+          li {
+            a {
               line-height: 18px;
               .facebook_icon {
                 margin-right: 7px;
@@ -200,13 +218,13 @@
         width: 115px;
       }
       .footer_content {
-        .heading {
+        h3 {
           line-height: 18px;
         }
-        .heading_list {
+        ul {
           list-style-type: none;
-          .heading_list_items {
-            .heading_list_content {
+          li {
+            a {
               line-height: 16px;
               .facebook_icon {
                 margin-right: 7px;
@@ -237,13 +255,13 @@
       }
       .footer_content {
         margin-bottom: 20px;
-        .heading {
+        h3 {
           line-height: 18px;
         }
-        .heading_list {
+        ul {
           list-style-type: none;
-          .heading_list_items {
-            .heading_list_content {
+          li {
+            a {
               line-height: 16px;
               .facebook_icon {
                 margin-right: 6px;
@@ -274,13 +292,13 @@
       }
       .footer_content {
         margin-bottom: 18px;
-        .heading {
+        h3 {
           line-height: 16px;
         }
-        .heading_list {
+        ul {
           list-style-type: none;
-          .heading_list_items {
-            .heading_list_content {
+          li {
+            a {
               line-height: 14px;
               .facebook_icon {
                 margin-right: 6px;
@@ -311,13 +329,13 @@
       }
       .footer_content {
         margin-bottom: 20px;
-        .heading {
+        h3 {
           line-height: 16px;
         }
-        .heading_list {
+        ul {
           list-style-type: none;
-          .heading_list_items {
-            .heading_list_content {
+          li {
+            a {
               line-height: 18px;
               .facebook_icon {
                 margin-right: 6px;

@@ -9,9 +9,28 @@ import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import EditCalendarRoundedIcon from "@mui/icons-material/EditCalendarRounded";
 import Sidebar from "@/app/components/sidebar";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { getApi, renderHtml } from "../../../../helpers/General";
 
 const MyProfile = () => {
   const router = useRouter();
+
+  const [pageData, setPageData] = useState([]);
+
+  let getData = async () => {
+    let resp = await getApi("user/view");
+
+    if (resp && resp.status) {
+      let { data } = resp;
+      if (data && data.data) {
+        setPageData(data.data);
+      }
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   const handleButtonClick = () => {
     router.push("/dashboard/edit-profile");
@@ -67,7 +86,7 @@ const MyProfile = () => {
                         </div>
                         <div className="my_profile_name_parent">
                           <div className="my_profile_name">
-                            <h4>Charles</h4>
+                            <h4>{pageData.first_name}</h4>
                             <h6>Manage your personal information</h6>
                           </div>
                           <div className="edit_button">
@@ -87,21 +106,21 @@ const MyProfile = () => {
                           <div className="personal_information_credentials_parent">
                             <div className="personal_information_credentials">
                               <h6>First Name</h6>
-                              <h5>Charles</h5>
+                              <h5>{pageData.first_name}</h5>
                             </div>
                             <div className="personal_information_credentials">
                               <h6>Last Name</h6>
-                              <h5>Smith</h5>
+                              <h5>{pageData.last_name}</h5>
                             </div>
                           </div>
                           <div className="personal_information_credentials_parent">
                             <div className="personal_information_credentials">
                               <h6>Email Address</h6>
-                              <h5>charlesmith@gmail.com</h5>
+                              <h5>{pageData.email}</h5>
                             </div>
                             <div className="personal_information_credentials">
                               <h6>Phone</h6>
-                              <h5>1234567756</h5>
+                              <h5>{pageData.phone_number}</h5>
                             </div>
                           </div>
                         </div>

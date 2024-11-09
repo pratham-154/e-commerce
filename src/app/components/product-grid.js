@@ -8,17 +8,23 @@ import { useState } from "react";
 
 const ProductGrid = (props) => {
   const [isActive, setIsActive] = useState(false);
+  let imageUrl = process.env.mediaUrl;
 
   return (
     <div className="productgrid_parent">
       {props && props.sale && (
         <div className="on_sale_tag">
-          <Image src={props.sale} alt="on_sale" width={115} height={40} />
+          <Image
+            src={`${imageUrl + props.sale}`}
+            alt="on_sale"
+            width={115}
+            height={40}
+          />
         </div>
       )}
       <div className="product_image">
         <Image
-          src={props.image}
+          src={`${imageUrl}${props.image[0]}`}
           alt="product_image"
           width={240}
           height={160}
@@ -60,10 +66,10 @@ const ProductGrid = (props) => {
         <div className="product_description">
           <div className="product_text">
             <h5>{props.heading}</h5>
-            <h6>{props.description}</h6>
+            <p>{props.description}</p>
             <div className="price_parent">
-              <span className="low_price">{props.low_price}</span>
-              <span className="high_price">{props.high_price}</span>
+              <span className="low_price">{`$${props.low_price}`}</span>
+              <span className="high_price">{`$${props.high_price}`}</span>
             </div>
           </div>
           <div className="add_cart">

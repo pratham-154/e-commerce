@@ -3,18 +3,9 @@ import Image from "next/image";
 import "../../../../public/sass/pages/homepage.scss";
 import Arrow from "../../../../public/images/arrow.png";
 import Threelines from "../../../../public/images/threelines.png";
-import CircleTick from "../../../../public/images/circle_tick.png";
-import Free from "../../../../public/images/free.png";
-import ShieldTick from "../../../../public/images/shield_tick.png";
 import DoubleQuotes from "../../../../public/images/double_quotes.png";
-import WilliamRog from "../../../../public/images/william_rog.png";
-import KamesRoger from "../../../../public/images/kames_roger.png";
-import MarkHenry from "../../../../public/images/mark_henry.png";
 import Triangles from "../../../../public/images/triangles.png";
 import SemiCircle from "../../../../public/images/semi_circle.png";
-import HairExtension from "../../../../public/images/hair_extension.png";
-import CurlEnhancing from "../../../../public/images/curl_enhancing.png";
-import HairBrush from "../../../../public/images/hair_brush.png";
 import TopDesign from "../../../../public/images/top_design.png";
 import BottomDesign from "../../../../public/images/bottom_design.png";
 import RightDesign from "../../../../public/images/right_design.png";
@@ -29,6 +20,12 @@ import StarIcon from "@mui/icons-material/Star";
 import { Container } from "@mui/system";
 import { Button, Grid, InputAdornment, TextField } from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";
+import {
+  postApi,
+  getApi,
+  emailRegex,
+  phoneNumberRegex,
+} from "../../../helpers/General";
 
 // Import Swiper styles
 import "swiper/css";
@@ -38,147 +35,178 @@ import "swiper/css/navigation";
 // import required modules
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+const Validator = require("validatorjs");
 
 const HomePage = () => {
+  const defaultHomeData = {
+    bannerData: [],
+    productData: [],
+    homePageData: [],
+    feedbackData: [],
+  };
+
+  const [pageData, setPageData] = useState(defaultHomeData);
+  let imageUrl = process.env.mediaUrl;
+
+  let getHomepageData = async () => {
+    let resp = await getApi("homepage/view/6707cfe60b4edc75747b1ddc");
+
+    if (resp && resp.status) {
+      let { data } = resp;
+      if (data && data.data) {
+        setPageData((prevData) => ({
+          ...prevData,
+          homePageData: Array.isArray(data.data) ? data.data : [data.data],
+          bannerData: data.bannerData,
+          productData: data.productData,
+          feedbackData: data.feedbackData,
+        }));
+      }
+    }
+  };
+
+  useEffect(() => {
+    getHomepageData();
+  }, []);
+
+  let defaultValue = {
+    first_name: "",
+    last_name: "",
+    email: "",
+    phone_number: "",
+    message: "",
+  };
+
+  let [formData, setFormData] = useState(defaultValue);
+  let [errors, setErrors] = useState({});
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: "",
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    Validator.register(
+      "emailRegex",
+      (value) => emailRegex.test(value),
+      "The email format is invalid."
+    );
+
+    Validator.register(
+      "phoneNumberRegex",
+      (value) => {
+        return phoneNumberRegex.test(value);
+      },
+      "The :attribute must be a valid phone number."
+    );
+
+    const rules = {
+      first_name: "required",
+      last_name: "required",
+      email: "required|emailRegex",
+      phone_number: "required|phoneNumberRegex|min:10|max:10",
+      message: "required",
+    };
+
+    const validationErrorMessages = {
+      "required.first_name": "The field is required.",
+      "required.last_name": "The field is required.",
+      "required.email": "The field is required.",
+      "emailRegex.email": "The email format is invalid.",
+      "required.phone_number": "The field is required.",
+      "phoneNumberRegex.phone_number": "The phonenumber format is invalid.",
+      "min.phone_number": "The phonenumber must be at least 10 characters.",
+      "max.phone_number":
+        "The phonenumber may not be greater than 10 characters.",
+      "required.subject": "The field is required.",
+      "required.message": "The field is required.",
+    };
+
+    const validation = new Validator(formData, rules, validationErrorMessages);
+    if (validation.fails()) {
+      const validationErrors = validation.errors.all();
+      setErrors(validationErrors);
+    } else {
+      try {
+        const response = await postApi("contact-us/add", formData);
+        if (response && response.data.status) {
+          setFormData(defaultValue);
+          toast.success(response.data.message);
+        } else {
+          console.log(response.data.message.errors);
+        }
+      } catch (error) {
+        toast.error(" Something went wrong please try after some time ");
+        console.error("Error submitting form:", error);
+      }
+    }
+  };
+
   return (
     <div className="main_home_section">
-      <Swiper
-        pagination={true}
-        autoplay={true}
-        modules={[Autoplay, Pagination]}
-        loop={true}
-        className="mySwiper"
-      >
-        <SwiperSlide>
-          <div
-            className="home_section"
-            style={{
-              backgroundImage: `url(../images/homepage.png)`,
-              backgroundSize: "cover",
-              backgroundRepeat: "no-repeat",
-              backgroundPosition: "center",
-            }}
-          >
-            <Container>
-              <Grid container>
-                <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-                  <div className="home_text">
-                    <h1>Transform Your Locks with Our Big Hair Collection</h1>
-                    <h6>
-                      Forem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Nunc vulputate libero et velit interdum, ac aliquet odio
-                      mattis. Class aptent taciti sociosqu
-                    </h6>
-                    <div className="buttons">
-                      <Button variant="outlined">Shop Now</Button>
-                      <div className="explore_btn">
-                        <Button variant="contained">Explore More</Button>
-                        <div className="threelines">
-                          <Image
-                            src={Threelines}
-                            alt="threelines"
-                            width={120}
-                            height={120}
-                          ></Image>
+      {pageData.bannerData && pageData.bannerData.length > 0 && (
+        <Swiper
+          pagination={true}
+          autoplay={true}
+          modules={[Autoplay, Pagination]}
+          loop={true}
+          className="mySwiper"
+        >
+          {pageData.bannerData.map((item, index) => (
+            <SwiperSlide key={index}>
+              <div
+                className="home_section"
+                style={{
+                  backgroundImage: `url(${item.image})`,
+                  backgroundSize: "cover",
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "center",
+                }}
+              >
+                <Container>
+                  <Grid container>
+                    <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                      <div className="home_text">
+                        <h1>{item.title}</h1>
+                        <h6>{item.description}</h6>
+                        <div className="buttons">
+                          <Button variant="outlined">Shop Now</Button>
+                          <div className="explore_btn">
+                            <Button variant="contained">Explore More</Button>
+                            <div className="threelines">
+                              <Image
+                                src={Threelines}
+                                alt="threelines"
+                                width={120}
+                                height={120}
+                              ></Image>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                  <div className="bottom_arrow">
-                    <Image src={Arrow} alt="arrow" />
-                  </div>
-                </Grid>
-              </Grid>
-            </Container>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div
-            className="home_section"
-            style={{
-              backgroundImage: `url(../images/homepage.png)`,
-              backgroundSize: "cover",
-              backgroundRepeat: "no-repeat",
-              backgroundPosition: "center",
-            }}
-          >
-            <Container>
-              <Grid container>
-                <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-                  <div className="home_text">
-                    <h1>Transform Your Locks with Our Big Hair Collection</h1>
-                    <h6>
-                      Forem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Nunc vulputate libero et velit interdum, ac aliquet odio
-                      mattis. Class aptent taciti sociosqu
-                    </h6>
-                    <div className="buttons">
-                      <Button variant="outlined">Shop Now</Button>
-                      <div className="explore_btn">
-                        <Button variant="contained">Explore More</Button>
-                        <div className="threelines">
-                          <Image
-                            src={Threelines}
-                            alt="threelines"
-                            width={120}
-                            height={120}
-                          ></Image>
-                        </div>
+                      <div className="bottom_arrow">
+                        <Image src={Arrow} alt="arrow" />
                       </div>
-                    </div>
-                  </div>
-                  <div className="bottom_arrow">
-                    <Image src={Arrow} alt="arrow" />
-                  </div>
-                </Grid>
-              </Grid>
-            </Container>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div
-            className="home_section"
-            style={{
-              backgroundImage: `url(../images/homepage.png)`,
-              backgroundSize: "cover",
-              backgroundRepeat: "no-repeat",
-              backgroundPosition: "center",
-            }}
-          >
-            <Container>
-              <Grid container>
-                <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-                  <div className="home_text">
-                    <h1>Transform Your Locks with Our Big Hair Collection</h1>
-                    <h6>
-                      Forem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Nunc vulputate libero et velit interdum, ac aliquet odio
-                      mattis. Class aptent taciti sociosqu
-                    </h6>
-                    <div className="buttons">
-                      <Button variant="outlined">Shop Now</Button>
-                      <div className="explore_btn">
-                        <Button variant="contained">Explore More</Button>
-                        <div className="threelines">
-                          <Image
-                            src={Threelines}
-                            alt="threelines"
-                            width={120}
-                            height={120}
-                          ></Image>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="bottom_arrow">
-                    <Image src={Arrow} alt="arrow" />
-                  </div>
-                </Grid>
-              </Grid>
-            </Container>
-          </div>
-        </SwiperSlide>
-      </Swiper>
+                    </Grid>
+                  </Grid>
+                </Container>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      )}
       <div className="sales_offer">
         <Swiper
           breakpoints={{
@@ -283,84 +311,21 @@ const HomePage = () => {
                   loop={true}
                   className="mySwiper"
                 >
-                  <SwiperSlide>
-                    <div className="hair_items_parent curls">
-                      <div className="hair_items">
-                        <Image
-                          src={CurlEnhancing}
-                          alt="curl_enhancing"
-                          height={350}
-                          width={350}
-                        />
+                  {pageData.productData.map((item, index) => (
+                    <SwiperSlide key={index}>
+                      <div className="hair_items_parent">
+                        <div className="hair_items">
+                          <Image
+                            src={`${imageUrl}${item.image[0]}`}
+                            alt="product_image"
+                            height={350}
+                            width={350}
+                          />
+                        </div>
+                        <h3>{item.title}</h3>
                       </div>
-                      <h3>Curl Enhancing</h3>
-                    </div>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <div className="hair_items_parent brush">
-                      <div className="hair_items">
-                        <Image
-                          src={HairBrush}
-                          alt="hair_Brush"
-                          height={350}
-                          width={350}
-                        />
-                      </div>
-                      <h3>Hair Brush</h3>
-                    </div>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <div className="hair_items_parent">
-                      <div className="hair_items">
-                        <Image
-                          src={HairExtension}
-                          alt="hair_extension"
-                          height={350}
-                          width={350}
-                        />
-                      </div>
-                      <h3>Hair Extension</h3>
-                    </div>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <div className="hair_items_parent curls">
-                      <div className="hair_items">
-                        <Image
-                          src={CurlEnhancing}
-                          alt="curl_enhancing"
-                          height={350}
-                          width={350}
-                        />
-                      </div>
-                      <h3>Curl Enhancing</h3>
-                    </div>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <div className="hair_items_parent brush">
-                      <div className="hair_items">
-                        <Image
-                          src={HairBrush}
-                          alt="hair_Brush"
-                          height={350}
-                          width={350}
-                        />
-                      </div>
-                      <h3>Hair Brush</h3>
-                    </div>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <div className="hair_items_parent">
-                      <div className="hair_items">
-                        <Image
-                          src={HairExtension}
-                          alt="hair_extension"
-                          height={350}
-                          width={350}
-                        />
-                      </div>
-                      <h3>Hair Extension</h3>
-                    </div>
-                  </SwiperSlide>
+                    </SwiperSlide>
+                  ))}
                   <div className="prev1">
                     <WestIcon />
                   </div>
@@ -369,59 +334,54 @@ const HomePage = () => {
                   </div>
                 </Swiper>
               </div>
-              <div className="middle_bottom_section">
-                <h3>
-                  EVERYTHING DELIVERED <span>AT YOUR DOORSTEP</span>
-                </h3>
-                <Grid container spacing={7}>
-                  <Grid item xl={4} lg={4} md={4} sm={4} xs={12}>
-                    <div className="icons_parent">
-                      <div className="icons">
-                        <Image
-                          src={CircleTick}
-                          alt="circle_tick"
-                          height={60}
-                          width={60}
-                        />
+              {pageData.homePageData.map((item, index) => (
+                <div className="middle_bottom_section" key={index}>
+                  <h3>
+                    EVERYTHING DELIVERED <span>AT YOUR DOORSTEP</span>
+                  </h3>
+                  <Grid container spacing={7}>
+                    <Grid item xl={4} lg={4} md={4} sm={4} xs={12}>
+                      <div className="icons_parent">
+                        <div className="icons">
+                          <Image
+                            src={item.text_image_1}
+                            alt="circle_tick"
+                            height={60}
+                            width={60}
+                          />
+                        </div>
+                        <p>{item.text_1}</p>
                       </div>
-                      <p>
-                        Lorem ipsum dolor sit amet, consectetur elit
-                        adipielitelitscing elit. Nunc. Lorem ipsum dolor sit
-                        amet, consectetur adipiscing elit. adipiscing Nunc.
-                      </p>
-                    </div>
-                  </Grid>
-                  <Grid item xl={4} lg={4} md={4} sm={4} xs={12}>
-                    <div className="icons_parent">
-                      <div className="icons free">
-                        <Image src={Free} alt="free" height={60} width={114} />
+                    </Grid>
+                    <Grid item xl={4} lg={4} md={4} sm={4} xs={12}>
+                      <div className="icons_parent">
+                        <div className="icons free">
+                          <Image
+                            src={item.text_image_2}
+                            alt="free"
+                            height={60}
+                            width={114}
+                          />
+                        </div>
+                        <p>{item.text_2}</p>
                       </div>
-                      <p>
-                        Lorem ipsum dolor sit amet, consectetur elit
-                        adipielitelitscing elit. Nunc. Lorem ipsum dolor sit
-                        amet, consectetur adipiscing elit. adipiscing Nunc.
-                      </p>
-                    </div>
-                  </Grid>
-                  <Grid item xl={4} lg={4} md={4} sm={4} xs={12}>
-                    <div className="icons_parent">
-                      <div className="icons shield">
-                        <Image
-                          src={ShieldTick}
-                          alt="shield_tick"
-                          height={60}
-                          width={56}
-                        />
+                    </Grid>
+                    <Grid item xl={4} lg={4} md={4} sm={4} xs={12}>
+                      <div className="icons_parent">
+                        <div className="icons shield">
+                          <Image
+                            src={item.text_image_3}
+                            alt="shield_tick"
+                            height={60}
+                            width={56}
+                          />
+                        </div>
+                        <p>{item.text_3}</p>
                       </div>
-                      <p>
-                        Lorem ipsum dolor sit amet, consectetur elit
-                        adipielitelitscing elit. Nunc. Lorem ipsum dolor sit
-                        amet, consectetur adipiscing elit. adipiscing Nunc.
-                      </p>
-                    </div>
+                    </Grid>
                   </Grid>
-                </Grid>
-              </div>
+                </div>
+              ))}
             </Grid>
           </Grid>
         </Container>
@@ -460,288 +420,46 @@ const HomePage = () => {
                   loop={true}
                   className="mySwiper"
                 >
-                  <SwiperSlide>
-                    <div className="feedback_text">
-                      <div className="user_image">
-                        <Image
-                          src={KamesRoger}
-                          alt="kamas_roger"
-                          height={46}
-                          width={46}
-                        ></Image>
-                      </div>
-                      <div className="double_quotes">
-                        <Image
-                          src={DoubleQuotes}
-                          alt="double_quotes"
-                          height={33}
-                          width={44}
-                        ></Image>
-                      </div>
-                      <h4>
-                        Forem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Nunc vulputate libero et velit interdum, ac aliquet odio
-                        mattis. Class aptent taciti sociosqu ad litora torquent
-                        per conubia nostra, per inceptos himenaeos.
-                      </h4>
-                      <div className="user_feedback">
-                        <div className="user_name">
-                          <h3>Kames Roger</h3>
+                  {pageData.feedbackData.map((item, index) => (
+                    <SwiperSlide key={index}>
+                      <div className="feedback_text">
+                        <div className="user_image">
+                          <Image
+                            src={item.image}
+                            alt="user_image"
+                            height={46}
+                            width={46}
+                          ></Image>
                         </div>
-                        <div className="user_rating">
-                          <ul className="user_stars">
-                            <li>
-                              <StarIcon />
-                            </li>
-                            <li>
-                              <StarIcon />
-                            </li>
-                            <li>
-                              <StarIcon />
-                            </li>
-                          </ul>
-                          <h6>4 months ago</h6>
+                        <div className="double_quotes">
+                          <Image
+                            src={DoubleQuotes}
+                            alt="double_quotes"
+                            height={33}
+                            width={44}
+                          ></Image>
+                        </div>
+                        <h4>{item.description}</h4>
+                        <div className="user_feedback">
+                          <div className="user_name">
+                            <h3>{item.title}</h3>
+                          </div>
+                          <div className="user_rating">
+                            <ul className="user_stars">
+                              {Array(item.rating)
+                                .fill()
+                                .map((_, index) => (
+                                  <li key={index}>
+                                    <StarIcon />
+                                  </li>
+                                ))}
+                            </ul>
+                            <h6>4 months ago</h6>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <div className="feedback_text">
-                      <div className="user_image">
-                        <Image
-                          src={MarkHenry}
-                          alt="mark_henry"
-                          height={46}
-                          width={46}
-                        ></Image>
-                      </div>
-                      <div className="double_quotes">
-                        <Image
-                          src={DoubleQuotes}
-                          alt="double_quotes"
-                          height={33}
-                          width={44}
-                        ></Image>
-                      </div>
-                      <h4>
-                        Forem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Nunc vulputate libero et velit interdum, ac aliquet odio
-                        mattis. Class aptent taciti sociosqu ad litora torquent
-                        per conubia nostra, per inceptos himenaeos.
-                      </h4>
-                      <div className="user_feedback">
-                        <div className="user_name">
-                          <h3>Mark Henry</h3>
-                        </div>
-                        <div className="user_rating">
-                          <ul className="user_stars">
-                            <li>
-                              <StarIcon />
-                            </li>
-                            <li>
-                              <StarIcon />
-                            </li>
-                            <li>
-                              <StarIcon />
-                            </li>
-                            <li>
-                              <StarIcon />
-                            </li>
-                          </ul>
-                          <h6>4 weeks ago</h6>
-                        </div>
-                      </div>
-                    </div>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <div className="feedback_text">
-                      <div className="user_image">
-                        <Image
-                          src={WilliamRog}
-                          alt="william_rog"
-                          height={46}
-                          width={46}
-                        ></Image>
-                      </div>
-                      <div className="double_quotes">
-                        <Image
-                          src={DoubleQuotes}
-                          alt="double_quotes"
-                          height={33}
-                          width={44}
-                        ></Image>
-                      </div>
-                      <h4>
-                        Forem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Nunc vulputate libero et velit interdum, ac aliquet odio
-                        mattis. Class aptent taciti sociosqu ad litora torquent
-                        per conubia nostra, per inceptos himenaeos.
-                      </h4>
-                      <div className="user_feedback">
-                        <div className="user_name">
-                          <h3>William Rog</h3>
-                        </div>
-                        <div className="user_rating">
-                          <ul className="user_stars">
-                            <li>
-                              <StarIcon />
-                            </li>
-                            <li>
-                              <StarIcon />
-                            </li>
-                            <li>
-                              <StarIcon />
-                            </li>
-                            <li>
-                              <StarIcon />
-                            </li>
-                          </ul>
-                          <h6>2 months ago</h6>
-                        </div>
-                      </div>
-                    </div>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <div className="feedback_text">
-                      <div className="user_image">
-                        <Image
-                          src={KamesRoger}
-                          alt="kamas_roger"
-                          height={46}
-                          width={46}
-                        ></Image>
-                      </div>
-                      <div className="double_quotes">
-                        <Image
-                          src={DoubleQuotes}
-                          alt="double_quotes"
-                          height={33}
-                          width={44}
-                        ></Image>
-                      </div>
-                      <h4>
-                        Forem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Nunc vulputate libero et velit interdum, ac aliquet odio
-                        mattis. Class aptent taciti sociosqu ad litora torquent
-                        per conubia nostra, per inceptos himenaeos.
-                      </h4>
-                      <div className="user_feedback">
-                        <div className="user_name">
-                          <h3>Kames Roger</h3>
-                        </div>
-                        <div className="user_rating">
-                          <ul className="user_stars">
-                            <li>
-                              <StarIcon />
-                            </li>
-                            <li>
-                              <StarIcon />
-                            </li>
-                            <li>
-                              <StarIcon />
-                            </li>
-                          </ul>
-                          <h6>4 months ago</h6>
-                        </div>
-                      </div>
-                    </div>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <div className="feedback_text">
-                      <div className="user_image">
-                        <Image
-                          src={MarkHenry}
-                          alt="mark_henry"
-                          height={46}
-                          width={46}
-                        ></Image>
-                      </div>
-                      <div className="double_quotes">
-                        <Image
-                          src={DoubleQuotes}
-                          alt="double_quotes"
-                          height={33}
-                          width={44}
-                        ></Image>
-                      </div>
-                      <h4>
-                        Forem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Nunc vulputate libero et velit interdum, ac aliquet odio
-                        mattis. Class aptent taciti sociosqu ad litora torquent
-                        per conubia nostra, per inceptos himenaeos.
-                      </h4>
-                      <div className="user_feedback">
-                        <div className="user_name">
-                          <h3>Mark Henry</h3>
-                        </div>
-                        <div className="user_rating">
-                          <ul className="user_stars">
-                            <li>
-                              <StarIcon />
-                            </li>
-                            <li>
-                              <StarIcon />
-                            </li>
-                            <li>
-                              <StarIcon />
-                            </li>
-                            <li>
-                              <StarIcon />
-                            </li>
-                          </ul>
-                          <h6>4 weeks ago</h6>
-                        </div>
-                      </div>
-                    </div>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <div className="feedback_text">
-                      <div className="user_image">
-                        <Image
-                          src={WilliamRog}
-                          alt="william_rog"
-                          height={46}
-                          width={46}
-                        ></Image>
-                      </div>
-                      <div className="double_quotes">
-                        <Image
-                          src={DoubleQuotes}
-                          alt="double_quotes"
-                          height={33}
-                          width={44}
-                        ></Image>
-                      </div>
-                      <h4>
-                        Forem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Nunc vulputate libero et velit interdum, ac aliquet odio
-                        mattis. Class aptent taciti sociosqu ad litora torquent
-                        per conubia nostra, per inceptos himenaeos.
-                      </h4>
-                      <div className="user_feedback">
-                        <div className="user_name">
-                          <h3>William Rog</h3>
-                        </div>
-                        <div className="user_rating">
-                          <ul className="user_stars">
-                            <li>
-                              <StarIcon />
-                            </li>
-                            <li>
-                              <StarIcon />
-                            </li>
-                            <li>
-                              <StarIcon />
-                            </li>
-                            <li>
-                              <StarIcon />
-                            </li>
-                          </ul>
-                          <h6>2 months ago</h6>
-                        </div>
-                      </div>
-                    </div>
-                  </SwiperSlide>
+                    </SwiperSlide>
+                  ))}
                 </Swiper>
                 <div className="prev2">
                   <WestIcon />
@@ -776,7 +494,7 @@ const HomePage = () => {
               </div>
               <div className="form_parent">
                 <div className="form_area">
-                  <form>
+                  <form onSubmit={handleSubmit}>
                     <h3>Get in Touch</h3>
                     <h4>
                       Lorem ipsum dolor sit amet, consectetur elit adipie
@@ -788,6 +506,9 @@ const HomePage = () => {
                           <TextField
                             id="input-with-icon-textfield"
                             placeholder="First Name"
+                            name="first_name"
+                            value={formData.first_name || ""}
+                            onChange={handleChange}
                             InputProps={{
                               startAdornment: (
                                 <InputAdornment position="start">
@@ -796,6 +517,10 @@ const HomePage = () => {
                               ),
                             }}
                             variant="standard"
+                            error={!!errors.first_name}
+                            helperText={
+                              errors.first_name ? errors.first_name[0] : ""
+                            }
                           />
                         </div>
                       </Grid>
@@ -804,6 +529,9 @@ const HomePage = () => {
                           <TextField
                             id="input-with-icon-textfield"
                             placeholder="Last Name"
+                            name="last_name"
+                            value={formData.last_name || ""}
+                            onChange={handleChange}
                             InputProps={{
                               startAdornment: (
                                 <InputAdornment position="start">
@@ -812,6 +540,10 @@ const HomePage = () => {
                               ),
                             }}
                             variant="standard"
+                            error={!!errors.last_name}
+                            helperText={
+                              errors.last_name ? errors.last_name[0] : ""
+                            }
                           />
                         </div>
                       </Grid>
@@ -820,6 +552,9 @@ const HomePage = () => {
                           <TextField
                             id="input-with-icon-textfield"
                             placeholder="Email"
+                            name="email"
+                            value={formData.email || ""}
+                            onChange={handleChange}
                             InputProps={{
                               startAdornment: (
                                 <InputAdornment position="start">
@@ -828,6 +563,8 @@ const HomePage = () => {
                               ),
                             }}
                             variant="standard"
+                            error={!!errors.email}
+                            helperText={errors.email ? errors.email[0] : ""}
                           />
                         </div>
                       </Grid>
@@ -836,6 +573,9 @@ const HomePage = () => {
                           <TextField
                             id="input-with-icon-textfield"
                             placeholder="Contact No."
+                            name="phone_number"
+                            value={formData.phone_number || ""}
+                            onChange={handleChange}
                             InputProps={{
                               startAdornment: (
                                 <InputAdornment position="start">
@@ -844,6 +584,10 @@ const HomePage = () => {
                               ),
                             }}
                             variant="standard"
+                            error={!!errors.phone_number}
+                            helperText={
+                              errors.phone_number ? errors.phone_number[0] : ""
+                            }
                           />
                         </div>
                       </Grid>
@@ -852,6 +596,9 @@ const HomePage = () => {
                           <TextField
                             id="input-with-icon-textfield"
                             placeholder="Message"
+                            name="message"
+                            value={formData.message || ""}
+                            onChange={handleChange}
                             multiline
                             InputProps={{
                               startAdornment: (
@@ -861,12 +608,16 @@ const HomePage = () => {
                               ),
                             }}
                             variant="standard"
+                            error={!!errors.message}
+                            helperText={errors.message ? errors.message[0] : ""}
                           />
                         </div>
                       </Grid>
                     </Grid>
                     <div className="submit_button">
-                      <Button variant="contained">Submit</Button>
+                      <Button variant="contained" type="submit">
+                        Submit
+                      </Button>
                     </div>
                   </form>
                 </div>

@@ -104,13 +104,13 @@
           color: $quaternaryText;
           margin-bottom: 10px;
         }
-        h6 {
+        p {
           font-family: Poppins;
           font-size: 13px;
           font-weight: 400;
           line-height: 19.5px;
-          color: #989898;
-          margin-bottom: 12px;
+          color: $productDescription;
+          margin-bottom: 5px;
         }
         .price_parent {
           .low_price {
