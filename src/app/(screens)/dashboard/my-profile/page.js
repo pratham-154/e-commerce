@@ -10,31 +10,34 @@ import EditCalendarRoundedIcon from "@mui/icons-material/EditCalendarRounded";
 import Sidebar from "@/app/components/sidebar";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { getApi, renderHtml } from "../../../../helpers/General";
+import { getApi } from "../../../../helpers/General";
 
 const MyProfile = () => {
   const router = useRouter();
 
   const [pageData, setPageData] = useState([]);
+  let imagePath =
+    pageData?.image && pageData.image !== ""
+      ? `http://localhost:4001/${pageData.image}`
+      : ProfileImage;
 
   let getData = async () => {
     let resp = await getApi("user/view");
+    console.log(resp);
 
     if (resp && resp.status) {
       let { data } = resp;
       if (data && data.data) {
         setPageData(data.data);
       }
+    } else {
+      router.push("/auth/login");
     }
   };
 
   useEffect(() => {
     getData();
   }, []);
-
-  const handleButtonClick = () => {
-    router.push("/dashboard/edit-profile");
-  };
 
   return (
     <div className="account_section">
@@ -78,7 +81,7 @@ const MyProfile = () => {
                       <div className="my_profile_about">
                         <div className="my_profile_image">
                           <Image
-                            src={ProfileImage}
+                            src={imagePath}
                             alt="profile_image"
                             width={80}
                             height={80}
@@ -93,7 +96,9 @@ const MyProfile = () => {
                             <Button
                               variant="contained"
                               endIcon={<EditCalendarRoundedIcon />}
-                              onClick={handleButtonClick}
+                              onClick={() =>
+                                router.push("/dashboard/edit-profile")
+                              }
                             >
                               Edit
                             </Button>

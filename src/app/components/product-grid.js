@@ -1,14 +1,16 @@
 "use client";
 import Image from "next/image";
 import "../../../public/sass/pages/product_grid.scss";
-import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
-import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import { Button } from "@mui/material";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const ProductGrid = (props) => {
-  const [isActive, setIsActive] = useState(false);
+  const router = useRouter();
   let imageUrl = process.env.mediaUrl;
+
+  const handleClick = () => {
+    router.push(`/product/${props.slug}`);
+  };
 
   return (
     <div className="productgrid_parent">
@@ -30,21 +32,6 @@ const ProductGrid = (props) => {
           height={160}
           priority={false}
         />
-        <div className="heart_icon">
-          {isActive ? (
-            <FavoriteRoundedIcon
-              onClick={() => {
-                setIsActive(!isActive);
-              }}
-            />
-          ) : (
-            <FavoriteBorderRoundedIcon
-              onClick={() => {
-                setIsActive(!isActive);
-              }}
-            />
-          )}
-        </div>
       </div>
       <div className="productgrid_text">
         <div className="productgrid_tags">
@@ -65,7 +52,7 @@ const ProductGrid = (props) => {
         </div>
         <div className="product_description">
           <div className="product_text">
-            <h5>{props.heading}</h5>
+            <h5 onClick={handleClick}>{props.heading}</h5>
             <p>{props.description}</p>
             <div className="price_parent">
               <span className="low_price">{`$${props.low_price}`}</span>

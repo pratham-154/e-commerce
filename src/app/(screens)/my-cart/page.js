@@ -197,8 +197,8 @@ const MyCart = () => {
                       </AccordionSummary>
                       <AccordionDetails>
                         <div className="accordion_inner_parent order_summary_section">
-                          {products.map((product) => (
-                            <div className="order_summary_parent">
+                          {products.map((product, index) => (
+                            <div className="order_summary_parent" key={index}>
                               <div className="product_image">
                                 <Image
                                   src={product.image}

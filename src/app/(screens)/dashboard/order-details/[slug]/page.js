@@ -1,14 +1,55 @@
 "use client";
 import Image from "next/image";
-import "../../../../../public/sass/pages/my_profile.scss";
+import "../../../../../../public/sass/pages/my_profile.scss";
 import { Container, Grid } from "@mui/material";
-import TopDesign from "../../../../../public/images/account_top_design.png";
-import BottomDesign from "../../../../../public/images/account_bottom_design.png";
-import JudaBun from "../../../../../public/images/juda_bun.png";
+import TopDesign from "../../../../../../public/images/account_top_design.png";
+import BottomDesign from "../../../../../../public/images/account_bottom_design.png";
+import JudaBun from "../../../../../../public/images/juda_bun.png";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import Sidebar from "@/app/components/sidebar";
+import { useEffect, useState } from "react";
+import { getApi } from "../../../../../helpers/General";
+import { useParams } from "next/navigation";
 
 const OrderDetails = () => {
+  const { slug } = useParams();
+
+  const defaultOrder = {
+    data: [],
+    productData: [],
+  };
+
+  const [pageData, setPageData] = useState(defaultOrder);
+
+  let getData = async () => {
+    let resp = await getApi(`order/view/${slug}`);
+
+    if (resp && resp.status) {
+      let { data } = resp;
+      if (data && data.data) {
+        setPageData({
+          data: data.data,
+          productData: data.productData,
+        });
+      }
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const price = pageData.productData.discount * pageData.data.item;
+
+  const discount =
+    pageData.productData.price * pageData.data.item -
+    pageData.productData.discount * pageData.data.item;
+
+  const delivery =
+    pageData.productData.sale === "" ? pageData.productData.delivery : "FREE";
+
+  const totalAmount = typeof delivery === "number" ? price + delivery : price;
+
   return (
     <div className="account_section">
       <div className="account_top_design">
@@ -46,26 +87,33 @@ const OrderDetails = () => {
                   <div className="my_profile_parent order_details_parent">
                     <div className="order_details_heading">
                       <h3>Order Details</h3>
-                      <span>Delivered</span>
+                      <span
+                        className={
+                          pageData.data.status === 1 ? "delivered" : "shipped"
+                        }
+                      >
+                        {pageData.data.status === 1 ? "Delivered" : "Shipped"}
+                      </span>
                     </div>
                     <div className="order_details_product_parent">
                       <div className="order_details_product">
                         <div className="product_image">
-                          <Image
-                            src={JudaBun}
-                            alt="product_image"
-                            width={120}
-                            height={110}
-                          />
+                          {pageData.productData.image &&
+                            pageData.productData.image.length > 0 && (
+                              <Image
+                                src={pageData.productData.image[0]}
+                                alt="product_image"
+                                width={120}
+                                height={110}
+                              />
+                            )}
                         </div>
                         <div className="product_description">
-                          <h4>Messy Juda Bun Extension</h4>
-                          <h6>
-                            Lorem ipsum dolor sit amet. Lorem ipsumpsum dol ....
-                          </h6>
+                          <h4>{pageData.productData.title}</h4>
+                          <h6>{pageData.productData.short_description}</h6>
                           <div className="product_price">
-                            <span className="low_price">$ 150</span>
-                            <span className="high_price">$ 200</span>
+                            <span className="low_price">{`$${pageData.productData.discount}`}</span>
+                            <span className="high_price">{`$${pageData.productData.price}`}</span>
                           </div>
                         </div>
                       </div>
@@ -90,16 +138,18 @@ const OrderDetails = () => {
                             </div>
                             <div className="information_description_parent">
                               <span className="information_description">
-                                #74878
+                                {pageData.data._id}
                               </span>
                               <span className="information_description">
-                                13 May, 2023
+                                {pageData.data.created_at}
                               </span>
                               <span className="information_description">
-                                13 May, 2023
+                                {pageData.data.delivered_at}
                               </span>
                               <span className="information_description">
-                                Paid
+                                {pageData.data.status === 1
+                                  ? "Paid"
+                                  : "Pending"}
                               </span>
                               <span className="information_description">
                                 2722 Ponce De Leon Blvd Coral Gables State
@@ -115,7 +165,7 @@ const OrderDetails = () => {
                           <div className="order_information_details">
                             <div className="information_tag_parent">
                               <span className="information_tag">
-                                Price(3 items)
+                                Price ({pageData.data.item} items)
                               </span>
                               <span className="information_tag">Discount</span>
                               <span className="information_tag">
@@ -127,16 +177,18 @@ const OrderDetails = () => {
                             </div>
                             <div className="information_description_parent">
                               <span className="information_description">
-                                $3200
+                                {`$${price}`}
                               </span>
                               <span className="information_description">
-                                -$1800
+                                {`-$${discount}`}
                               </span>
                               <span className="information_description">
-                                Free
+                                {typeof delivery == "number"
+                                  ? `+$${delivery}`
+                                  : delivery}
                               </span>
                               <span className="information_description">
-                                $1400
+                                {`$${totalAmount}`}
                               </span>
                             </div>
                           </div>

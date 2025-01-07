@@ -1,9 +1,6 @@
 "use client";
 import Image from "next/image";
 import "../../../../../public/sass/pages/my_profile.scss";
-import JudaBun from "../../../../../public/images/juda_bun.png";
-import HairExtension from "../../../../../public/images/hair_extension.png";
-import HairWig from "../../../../../public/images/hair_wig.png";
 import {
   Button,
   Container,
@@ -18,55 +15,110 @@ import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import InventoryOutlinedIcon from "@mui/icons-material/InventoryOutlined";
 import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
 import Sidebar from "@/app/components/sidebar";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { getApi } from "../../../../helpers/General";
 
 const MyOrder = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
-  const handleButtonClick = () => {
-    router.push("/dashboard/order-details");
-  };
-
-  const sort = ["Price", "Popularity", "New Arrival", "Customer Review"];
-
-  const products = [
+  const sortSelect = [
     {
-      image: JudaBun,
-      heading: "Messy Juda Bun Extension",
-      description: "Lorem ipsum dolor sit amet. Lorem ipsumpsum dol ....",
-      low_price: "$150",
-      high_price: "$200",
-      ordered: "Ordered on 13th May,2023",
-      delivered: "Delivered on 13th May, 2023",
-      shipping: "Delivered",
+      title: "Product Title (A-Z)",
+      sort: "product_id.title",
+      direction: "asc",
     },
     {
-      image: HairExtension,
-      heading: "Messy Juda Bun Extension",
-      description: "Lorem ipsum dolor sit amet. Lorem ipsumpsum dol ....",
-      low_price: "$150",
-      high_price: "$200",
-      ordered: "Ordered on 13th May,2023",
-      delivered: "Delivered on 13th May, 2023",
-      shipping: "Shipped",
+      title: "Product Title (Z-A)",
+      sort: "product_id.title",
+      direction: "desc",
     },
     {
-      image: HairWig,
-      heading: "Messy Juda Bun Extension",
-      description: "Lorem ipsum dolor sit amet. Lorem ipsumpsum dol ....",
-      low_price: "$150",
-      high_price: "$200",
-      ordered: "Ordered on 13th May,2023",
-      delivered: "Delivered on 13th May, 2023",
-      shipping: "Delivered",
+      title: "Product Price (Low-High)",
+      sort: "product_id.price",
+      direction: "asc",
+    },
+    {
+      title: "Product Price (High-Low)",
+      sort: "product_id.price",
+      direction: "desc",
     },
   ];
 
-  const [sortBy, setSortBy] = useState("Price");
+  const defaultOrder = {
+    data: [],
+    totalCount: "",
+    totalPages: "",
+  };
 
-  const handleChange = (value) => {
-    setSortBy(value);
+  const defaultFilter = {
+    sort: searchParams.get("sort") || "",
+    direction: searchParams.get("direction") || "",
+    limit: parseInt(searchParams.get("limit")) || 3,
+    page: parseInt(searchParams.get("page")) || 1,
+  };
+
+  const [pageData, setPageData] = useState(defaultOrder);
+  const [filterData, setFilterData] = useState(defaultFilter);
+
+  const updateUrl = () => {
+    const params = new URLSearchParams();
+    if (filterData.sort) params.set("sort", filterData.sort);
+    if (filterData.direction) params.set("direction", filterData.direction);
+    params.set("limit", filterData.limit);
+    params.set("page", filterData.page);
+
+    const queryString = `?${params.toString()}`;
+    window.history.replaceState(null, "", queryString);
+  };
+
+  let getData = async () => {
+    let resp = await getApi("order/index", {
+      params: {
+        sort: filterData.sort,
+        direction: filterData.direction,
+        limit: filterData.limit,
+        page: filterData.page,
+      },
+    });
+
+    if (resp && resp.status) {
+      let { data } = resp;
+      if (data && data.data) {
+        setPageData({
+          data: data.data,
+          totalCount: data.totalCount,
+          totalPages: data.totalPages,
+        });
+      }
+    }
+  };
+
+  const handleSortChange = (index) => {
+    setFilterData({
+      ...filterData,
+      sort: sortSelect[index].sort,
+      direction: sortSelect[index].direction,
+    });
+  };
+
+  const handlePageChange = (e, value) => {
+    setFilterData({ ...filterData, page: value });
+  };
+
+  const sortIndex = sortSelect.findIndex(
+    (cat) =>
+      cat.sort === filterData.sort && cat.direction === filterData.direction
+  );
+
+  useEffect(() => {
+    updateUrl();
+    getData();
+  }, [filterData]);
+
+  const handleClick = (slug) => {
+    router.push(`/dashboard/order-details/${slug}`);
   };
 
   return (
@@ -107,76 +159,83 @@ const MyOrder = () => {
                     <div className="my_order_heading_parent">
                       <div className="my_order_heading">
                         <h3>
-                          My Orders (<span>6</span>)
+                          My Orders (<span>{pageData.totalCount}</span>)
                         </h3>
                       </div>
-                      <div className="filter_parent">
-                        <div className="filter_button">
-                          <Button variant="contained">Filter</Button>
-                        </div>
+                      {/* <div className="filter_parent">
                         <div className="sort_select">
                           <Select
                             id="demo-simple-select"
-                            value={sortBy}
-                            onChange={(e) => handleChange(e.target.value)}
+                            value={sortIndex !== -1 ? sortIndex : 0}
+                            onChange={(e) => handleSortChange(e.target.value)}
                           >
-                            {sort.map((sorts, index) => (
-                              <MenuItem key={index} value={sorts}>
-                                {sorts}
+                            {sortSelect.map((sort, index) => (
+                              <MenuItem key={index} value={index}>
+                                {sort.title}
                               </MenuItem>
                             ))}
                           </Select>
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                     <div className="ordergrid_parent">
-                      {products.map((product) => (
-                        <div className="ordergrid_child">
+                      {pageData.data.map((data, index) => (
+                        <div className="ordergrid_child" key={index}>
                           <div className="ordergrid_image">
                             <Image
-                              src={product.image}
+                              src={data.product_id.image[0]}
                               alt="order_image"
                               width={120}
                               height={110}
-                              onClick={handleButtonClick}
+                              onClick={() => handleClick(data.product_id.slug)}
                             />
                           </div>
                           <div className="ordergrid_text_parent">
                             <div className="ordergrid_text">
                               <div className="product_description">
-                                <h4 onClick={handleButtonClick}>
-                                  {product.heading}
+                                <h4
+                                  onClick={() =>
+                                    handleClick(data.product_id.slug)
+                                  }
+                                >
+                                  {data.product_id.title} (
+                                  <span>{data.item}</span>)
                                 </h4>
-                                <h6>{product.description}</h6>
+                                <h6>{data.product_id.short_description}</h6>
                               </div>
                               <div className="product_price">
                                 <span className="low_price">
-                                  {product.low_price}
+                                  {`$${data.product_id.discount}`}
                                 </span>
                                 <span className="high_price">
-                                  {product.high_price}
+                                  {`$${data.product_id.price}`}
                                 </span>
                               </div>
                               <div className="product_shipping_parent">
                                 <div className="product_shipping">
                                   <InventoryOutlinedIcon className="icon" />
-                                  <h6>{product.ordered}</h6>
+                                  <h6>Ordered on {data.created_at}</h6>
                                 </div>
                                 <div className="product_shipping">
                                   <LocalShippingOutlinedIcon className="icon shipping" />
-                                  <h6>{product.delivered}</h6>
+                                  <h6>Delivered on {data.delivered_at}</h6>
                                 </div>
                               </div>
+                              {/* {data.status === 1 ? (
+                                <Button variant="outlined">Return</Button>
+                              ) : (
+                                <Button variant="contained">
+                                  Cancellation
+                                </Button>
+                              )} */}
                             </div>
                             <div className="shipping_tag">
                               <span
                                 className={
-                                  product.shipping === "Delivered"
-                                    ? "delivered"
-                                    : "shipped"
+                                  data.status === 1 ? "delivered" : "shipped"
                                 }
                               >
-                                {product.shipping}
+                                {data.status === 1 ? "Delivered" : "Shipped"}
                               </span>
                             </div>
                           </div>
@@ -184,7 +243,12 @@ const MyOrder = () => {
                       ))}
                     </div>
                     <div className="pagenation">
-                      <Pagination count={10} variant="outlined" />
+                      <Pagination
+                        count={pageData.totalPages}
+                        variant="outlined"
+                        onChange={handlePageChange}
+                        page={filterData.page}
+                      />
                     </div>
                   </div>
                 </div>

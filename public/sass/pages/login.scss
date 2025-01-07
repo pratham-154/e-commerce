@@ -26,32 +26,107 @@
       padding-top: 84px;
       padding-bottom: 83px;
       margin: auto;
-      width: 100%;
-      max-width: 570px;
-      .login_text {
-        margin-bottom: 15px;
-        .css-ag7rrr-MuiTypography-root {
-          font-family: Clash Display;
-          font-size: 24px;
-          font-weight: 700;
-          line-height: 29.52px;
-          text-align: center;
+      form {
+        width: 100%;
+        max-width: 570px;
+        .login_text {
+          margin-bottom: 15px;
+          .css-ag7rrr-MuiTypography-root {
+            font-family: Clash Display;
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 29.52px;
+            text-align: center;
+          }
         }
-      }
-      .login_description {
-        margin-bottom: 63px;
-        .css-2ulfj5-MuiTypography-root {
-          font-family: Poppins;
-          font-size: 14px;
-          font-weight: 500;
-          line-height: 21px;
-          text-align: center;
+        .login_description {
+          margin-bottom: 63px;
+          .css-2ulfj5-MuiTypography-root {
+            font-family: Poppins;
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 21px;
+            text-align: center;
+            a {
+              font-family: Poppins;
+              font-size: 14px;
+              font-weight: 600;
+              line-height: 21px;
+              text-decoration: underline;
+            }
+            &:hover {
+              a {
+                color: $hoverText;
+              }
+            }
+          }
+        }
+        .login_credentials_parent {
+          margin-bottom: 44.16px;
+          .login_credentials {
+            .css-9npbnl-MuiFormLabel-root-MuiInputLabel-root {
+              font-family: Poppins;
+              font-size: 14px;
+              font-weight: 400;
+              line-height: 28px;
+              color: $primaryText;
+              span {
+                color: $spanText;
+              }
+            }
+            .css-1u3bzj6-MuiFormControl-root-MuiTextField-root {
+              width: 100%;
+              margin-bottom: 23px;
+            }
+            .css-1eed5fa-MuiInputBase-root-MuiInput-root::before {
+              border-bottom: 2px solid $tertiaryBorder;
+            }
+            .css-1eed5fa-MuiInputBase-root-MuiInput-root::after {
+              border-bottom: 2px solid $tertiaryBorder;
+            }
+            .css-1x51dt5-MuiInputBase-input-MuiInput-input {
+              font-family: Poppins;
+              font-size: 16px;
+              font-weight: 500;
+              line-height: 24px;
+              color: $tertiaryText;
+            }
+            .css-1x51dt5-MuiInputBase-input-MuiInput-input:invalid {
+              font-family: Poppins;
+              font-size: 16px;
+              font-weight: 500;
+              line-height: 24px;
+              color: $tertiaryText;
+            }
+            &.otp_input {
+              .containerstyle {
+                justify-content: space-between;
+                .inputstyle {
+                  height: 58px;
+                  width: 58px !important;
+                  background-color: $secondaryBackground;
+                  border: 1px solid $quinaryBorder;
+                  border-radius: 10px;
+                  font-family: Clash Display;
+                  font-size: 24px;
+                  font-weight: 700;
+                  line-height: 29.52px;
+                  text-align: center;
+                  color: $primaryText;
+                }
+              }
+            }
+          }
+        }
+        .forget_pass_section {
+          margin-bottom: 63px;
+          text-align: right;
           a {
             font-family: Poppins;
             font-size: 14px;
-            font-weight: 600;
+            font-weight: 400;
             line-height: 21px;
-            text-decoration: underline;
+            color: $tertiaryText;
           }
           &:hover {
             a {
@@ -59,173 +134,100 @@
             }
           }
         }
-      }
-      .login_credentials_parent {
-        margin-bottom: 44.16px;
-        .login_credentials {
-          .css-9npbnl-MuiFormLabel-root-MuiInputLabel-root {
+        .login_btn {
+          text-align: center;
+          .css-sghohy-MuiButtonBase-root-MuiButton-root {
+            width: 100%;
+            height: 39px;
             font-family: Poppins;
             font-size: 14px;
             font-weight: 400;
-            line-height: 28px;
-            color: $primaryText;
-            span {
-              color: $spanText;
+            line-height: 21px;
+            padding: 13px 39px 13px 39px;
+            background-color: $primaryBackground;
+            border-radius: 10px;
+            margin-bottom: 30px;
+          }
+          &:hover {
+            .css-sghohy-MuiButtonBase-root-MuiButton-root {
+              color: $hoverText;
             }
           }
-          .css-1u3bzj6-MuiFormControl-root-MuiTextField-root {
-            width: 100%;
-            margin-bottom: 23px;
-          }
-          .css-1eed5fa-MuiInputBase-root-MuiInput-root::before {
-            border-bottom: 2px solid $tertiaryBorder;
-          }
-          .css-1eed5fa-MuiInputBase-root-MuiInput-root::after {
-            border-bottom: 2px solid $tertiaryBorder;
-          }
-          .css-1x51dt5-MuiInputBase-input-MuiInput-input {
-            font-family: Poppins;
-            font-size: 16px;
-            font-weight: 500;
-            line-height: 24px;
-            color: $tertiaryText;
-          }
-          .css-1x51dt5-MuiInputBase-input-MuiInput-input:invalid {
-            font-family: Poppins;
-            font-size: 16px;
-            font-weight: 500;
-            line-height: 24px;
-            color: $tertiaryText;
-          }
-          &.otp_input {
-            .containerstyle {
-              justify-content: space-between;
-              .inputstyle {
-                height: 58px;
-                width: 58px !important;
-                background-color: $secondaryBackground;
-                border: 1px solid $quinaryBorder;
-                border-radius: 10px;
-                font-family: Clash Display;
-                font-size: 24px;
-                font-weight: 700;
-                line-height: 29.52px;
-                text-align: center;
-                color: $primaryText;
+          &.cancel_btn {
+            .css-sghohy-MuiButtonBase-root-MuiButton-root {
+              color: $primaryText;
+              background-color: $white;
+              border: 1px solid $primaryBorder;
+            }
+            &:hover {
+              .css-sghohy-MuiButtonBase-root-MuiButton-root {
+                background-color: $hoverText;
               }
             }
           }
         }
-      }
-      .forget_pass_section {
-        margin-bottom: 63px;
-        text-align: right;
-        a {
-          font-family: Poppins;
-          font-size: 14px;
-          font-weight: 400;
-          line-height: 21px;
-          color: $tertiaryText;
-        }
-        &:hover {
-          a {
-            color: $hoverText;
+        .lined_or {
+          .css-2ulfj5-MuiTypography-root {
+            font-family: Poppins;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 21px;
+            text-align: center;
+            margin: 63px auto;
+            position: relative;
+            max-width: 500px;
+          }
+          .css-2ulfj5-MuiTypography-root:before {
+            content: " ";
+            height: 2px;
+            width: 45%;
+            background: $secondaryBackground;
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 0;
+          }
+          .css-2ulfj5-MuiTypography-root:after {
+            content: " ";
+            height: 2px;
+            width: 45%;
+            background: $secondaryBackground;
+            display: block;
+            position: absolute;
+            top: 50%;
+            right: 0;
           }
         }
-      }
-      .login_btn {
-        text-align: center;
-        .css-sghohy-MuiButtonBase-root-MuiButton-root {
-          width: 100%;
-          height: 39px;
-          font-family: Poppins;
-          font-size: 14px;
-          font-weight: 400;
-          line-height: 21px;
-          padding: 13px 39px 13px 39px;
-          background-color: $primaryBackground;
-          border-radius: 10px;
-          margin-bottom: 30px;
-        }
-        &:hover {
-          .css-sghohy-MuiButtonBase-root-MuiButton-root {
-            color: $hoverText;
-          }
-        }
-        &.cancel_btn {
-          .css-sghohy-MuiButtonBase-root-MuiButton-root {
-            color: $primaryText;
-            background-color: $white;
+        .login_other {
+          display: flex;
+          justify-content: center;
+          gap: 55px;
+          .login_other_section {
             border: 1px solid $primaryBorder;
-          }
-          &:hover{
-            .css-sghohy-MuiButtonBase-root-MuiButton-root {
-              background-color: $hoverText;
+            border-radius: 10px;
+            padding: 23px 46px;
+            .login_other_img {
+              display: flex;
+              justify-content: center;
+              margin-bottom: 20px;
+              img {
+                height: 54px;
+                width: 54px;
+                object-fit: cover;
+              }
             }
-          }
-        }
-      }
-      .lined_or {
-        .css-2ulfj5-MuiTypography-root {
-          font-family: Poppins;
-          font-size: 14px;
-          font-weight: 400;
-          line-height: 21px;
-          text-align: center;
-          margin: 63px auto;
-          position: relative;
-          max-width: 500px;
-        }
-        .css-2ulfj5-MuiTypography-root:before {
-          content: " ";
-          height: 2px;
-          width: 45%;
-          background: $secondaryBackground;
-          display: block;
-          position: absolute;
-          top: 50%;
-          left: 0;
-        }
-        .css-2ulfj5-MuiTypography-root:after {
-          content: " ";
-          height: 2px;
-          width: 45%;
-          background: $secondaryBackground;
-          display: block;
-          position: absolute;
-          top: 50%;
-          right: 0;
-        }
-      }
-      .login_other {
-        display: flex;
-        justify-content: center;
-        gap: 55px;
-        .login_other_section {
-          border: 1px solid $primaryBorder;
-          border-radius: 10px;
-          padding: 23px 46px;
-          .login_other_img {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 20px;
-            img {
-              height: 54px;
-              width: 54px;
-              object-fit: cover;
-            }
-          }
-          .login_other_text {
-            .css-2ulfj5-MuiTypography-root {
-              font-family: Poppins;
-              font-size: 14px;
-              font-weight: 400;
-              line-height: 21px;
-              text-align: center;
-            }
-            &:hover {
+            .login_other_text {
               .css-2ulfj5-MuiTypography-root {
-                color: $hoverText;
+                font-family: Poppins;
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 21px;
+                text-align: center;
+              }
+              &:hover {
+                .css-2ulfj5-MuiTypography-root {
+                  color: $hoverText;
+                }
               }
             }
           }

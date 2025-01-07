@@ -30,6 +30,7 @@
   }
   .account_parent {
     border-bottom: 1px solid #d0d0d0;
+    position: relative;
     .account_heading {
       display: flex;
       align-items: center;
@@ -240,16 +241,34 @@
                         object-fit: cover;
                         border-radius: 50%;
                       }
-                      a {
+                      .css-1e6y48t-MuiButtonBase-root-MuiButton-root {
+                        background-color: #989898;
+                        border-radius: 50%;
+                        height: 22px;
+                        min-width: 22px;
+                        padding: 6px 0px;
+                        position: absolute;
+                        top: 0;
+                        right: 0;
                         .css-i4bv87-MuiSvgIcon-root {
                           width: 24px;
                           height: 24px;
-                          color: #989898;
-                          background: $white;
-                          border-radius: 50%;
-                          position: absolute;
-                          top: 0;
-                          right: 0;
+                          color: $white;
+                        }
+                      }
+                      .css-sghohy-MuiButtonBase-root-MuiButton-root {
+                        background-color: #989898;
+                        border-radius: 50%;
+                        height: 24px;
+                        min-width: 24px;
+                        padding: 6px 0px;
+                        position: absolute;
+                        left: 0;
+                        bottom: 0;
+                        .css-i4bv87-MuiSvgIcon-root {
+                          width: 16px;
+                          height: 16px;
+                          color: $white;
                         }
                       }
                     }
@@ -337,7 +356,9 @@
               justify-content: space-between;
               padding: 16px 25px 18px 40px;
               box-shadow: 2px 4px 10px 0px #1e1e1e08;
+              margin-bottom: 20px;
               .my_order_heading {
+                flex-shrink: 0;
                 h3 {
                   font-family: Clash_Display;
                   font-size: 24px;
@@ -435,6 +456,9 @@
                         letter-spacing: 0.08em;
                         color: $quaternaryText;
                         margin-bottom: 10px;
+                        span {
+                          color: #7a7a7a;
+                        }
                         &:hover {
                           color: $hoverText;
                         }
@@ -471,6 +495,7 @@
                     .product_shipping_parent {
                       display: flex;
                       align-items: center;
+                      margin-bottom: 12px;
                       .product_shipping {
                         display: flex;
                         align-items: center;
@@ -496,6 +521,37 @@
                         &:first-child {
                           margin-left: 0;
                         }
+                      }
+                    }
+                    .css-1rwt2y5-MuiButtonBase-root-MuiButton-root {
+                      font-family: Poppins;
+                      font-size: 14px;
+                      font-weight: 400;
+                      line-height: 21px;
+                      color: $quaternaryText;
+                      background-color: #fefefe;
+                      text-transform: capitalize;
+                      border: 1px solid $senaryBorder;
+                      box-shadow: 2px 4px 4px 0px #1e1e1e1a;
+                      border-radius: 20px;
+                      padding: 10px 20px;
+                      &:hover {
+                        background-color: $hoverText;
+                      }
+                    }
+                    .css-sghohy-MuiButtonBase-root-MuiButton-root {
+                      font-family: Poppins;
+                      font-size: 14px;
+                      font-weight: 400;
+                      line-height: 21px;
+                      color: #fefefe;
+                      text-transform: capitalize;
+                      background-color: $primaryBackground;
+                      box-shadow: 2px 4px 4px 0px #1e1e1e1a;
+                      border-radius: 20px;
+                      padding: 10px 20px;
+                      &:hover {
+                        color: $hoverText;
                       }
                     }
                   }
@@ -539,8 +595,30 @@
               }
             }
             &.my_wishlist_parent {
+              .product_chips_parent {
+                .product_chips {
+                  .css-1twl2lg-MuiButtonBase-root-MuiChip-root {
+                    font-family: Poppins;
+                    font-size: 14px;
+                    font-weight: 400;
+                    line-height: 21px;
+                    color: $quaternaryText;
+                    background-color: #ffe2924d;
+                    border: 1px solid #ffc727;
+                    border-radius: 30px;
+                    padding: 20px 4px;
+                    margin-bottom: 10px;
+                    margin-left: 10px;
+                  }
+                  .css-i4bv87-MuiSvgIcon-root {
+                    width: 12px;
+                    height: 12px;
+                    color: #7a7a7a;
+                  }
+                }
+              }
               .ordergrid_parent {
-                padding: 40px 16px 55px 40px;
+                padding: 20px 16px 55px 40px;
                 .ordergrid_child {
                   padding: 20px 25px;
                   background-color: #fefefe;
@@ -584,16 +662,7 @@
                       .css-i4bv87-MuiSvgIcon-root {
                         width: 24px;
                         height: 24px;
-                      }
-                      &.active {
-                        .css-i4bv87-MuiSvgIcon-root {
-                          color: #fd2f2f;
-                        }
-                      }
-                      &.in_active {
-                        .css-i4bv87-MuiSvgIcon-root {
-                          color: $primaryText;
-                        }
+                        color: #fd2f2f;
                       }
                     }
                   }
@@ -676,7 +745,7 @@
                             }
                           }
                         }
-                        .move_cart_parent{
+                        .move_cart_parent {
                           display: flex;
                           align-items: center;
                           .move_cart {
@@ -736,7 +805,7 @@
                 letter-spacing: 0.08em;
                 color: $quaternaryText;
               }
-              span {
+              .delivered {
                 font-family: Poppins;
                 font-size: 12px;
                 font-weight: 500;
@@ -744,6 +813,17 @@
                 color: #077928;
                 background-color: #07792833;
                 border: 0.5px solid #077928;
+                border-radius: 12px;
+                padding: 4px 7px;
+              }
+              .shipped {
+                font-family: Poppins;
+                font-size: 12px;
+                font-weight: 500;
+                line-height: 18px;
+                color: #ffa858;
+                background-color: #ffa85833;
+                border: 0.5px solid #ffa858;
                 border-radius: 12px;
                 padding: 4px 7px;
               }
@@ -890,11 +970,9 @@
                           margin-bottom: 6px;
                           &:nth-child(2) {
                             color: #3d9653;
-                            margin-left: -4px;
                           }
                           &:nth-child(3) {
                             color: #3d9653;
-                            margin-left: 9px;
                             margin-bottom: 11px;
                           }
                           &:nth-child(4) {
@@ -1001,6 +1079,13 @@
                 &:last-child {
                   margin-bottom: 0px;
                 }
+              }
+              .css-sghohy-MuiButtonBase-root-MuiButton-root {
+                height: 40px;
+                color: $secondaryText;
+                background-color: $primaryBackground;
+                text-transform: capitalize;
+                border-radius: 20px;
               }
             }
           }
@@ -1298,10 +1383,22 @@ body {
                         width: 80px;
                         height: 80px;
                         margin-bottom: 10px;
-                        a {
+                        .css-1e6y48t-MuiButtonBase-root-MuiButton-root {
+                          height: 22px;
+                          min-width: 22px;
+                          padding: 6px 0px;
                           .css-i4bv87-MuiSvgIcon-root {
                             width: 24px;
                             height: 24px;
+                          }
+                        }
+                        .css-sghohy-MuiButtonBase-root-MuiButton-root {
+                          height: 24px;
+                          min-width: 24px;
+                          padding: 6px 0px;
+                          .css-i4bv87-MuiSvgIcon-root {
+                            width: 16px;
+                            height: 16px;
                           }
                         }
                       }
@@ -1489,7 +1586,7 @@ body {
                               }
                             }
                           }
-                          .move_cart_parent{
+                          .move_cart_parent {
                             .move_cart {
                               .css-1rwt2y5-MuiButtonBase-root-MuiButton-root {
                                 border-radius: 20px;
@@ -1522,9 +1619,13 @@ body {
                   font-weight: 700;
                   line-height: 26.52px;
                 }
-                span {
-                  border-radius: 10px;
-                  padding: 2px 7px;
+                .delivered {
+                  border-radius: 12px;
+                  padding: 4px 7px;
+                }
+                .shipped {
+                  border-radius: 12px;
+                  padding: 4px 7px;
                 }
               }
               .order_details_product_parent {
@@ -1541,7 +1642,7 @@ body {
                     h4 {
                       font-size: 20px;
                       font-weight: 700;
-                      line-height: 24.6px;                   
+                      line-height: 24.6px;
                       margin-bottom: 8px;
                     }
                     h6 {
@@ -1609,13 +1710,6 @@ body {
                             font-weight: 400;
                             line-height: 24px;
                             margin-bottom: 6px;
-                            &:nth-child(2) {
-                              margin-left: -4px;
-                            }
-                            &:nth-child(3) {
-                              margin-left: 9px;
-                              margin-bottom: 11px;
-                            }
                             &:nth-child(4) {
                               font-size: 18px;
                               font-weight: 600;
@@ -1679,6 +1773,9 @@ body {
                       margin-left: 12px;
                     }
                   }
+                }
+                .css-sghohy-MuiButtonBase-root-MuiButton-root {
+                  height: 35px;
                 }
               }
             }
@@ -1874,10 +1971,22 @@ body {
                         width: 80px;
                         height: 80px;
                         margin-bottom: 10px;
-                        a {
+                        .css-1e6y48t-MuiButtonBase-root-MuiButton-root {
+                          height: 22px;
+                          min-width: 22px;
+                          padding: 6px 0px;
                           .css-i4bv87-MuiSvgIcon-root {
                             width: 24px;
                             height: 24px;
+                          }
+                        }
+                        .css-sghohy-MuiButtonBase-root-MuiButton-root {
+                          height: 24px;
+                          min-width: 24px;
+                          padding: 6px 0px;
+                          .css-i4bv87-MuiSvgIcon-root {
+                            width: 16px;
+                            height: 16px;
                           }
                         }
                       }
@@ -1921,12 +2030,15 @@ body {
                   }
                 }
                 .filter_parent {
+                  flex-direction: column-reverse;
+                  align-items: normal;
                   .css-sghohy-MuiButtonBase-root-MuiButton-root {
                     border-radius: 6px;
                     padding: 9px 16px;
                   }
                   .sort_select {
-                    margin-left: 10px;
+                    margin-left: 0px;
+                    margin-bottom: 10px;
                     .css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root {
                       border-radius: 6px;
                     }
@@ -2011,7 +2123,7 @@ body {
               }
               .pagenation {
                 margin-bottom: 35px;
-                .css-lqq3n7-MuiButtonBase-root-MuiPaginationItem-root{
+                .css-lqq3n7-MuiButtonBase-root-MuiPaginationItem-root {
                   min-width: 24px;
                   height: 24px;
                 }
@@ -2087,7 +2199,7 @@ body {
                               }
                             }
                           }
-                          .move_cart_parent{
+                          .move_cart_parent {
                             justify-content: space-between;
                             .move_cart {
                               .css-1rwt2y5-MuiButtonBase-root-MuiButton-root {
@@ -2121,9 +2233,13 @@ body {
                   font-weight: 700;
                   line-height: 24.52px;
                 }
-                span {
-                  border-radius: 10px;
-                  padding: 2px 7px;
+                .delivered {
+                  border-radius: 12px;
+                  padding: 4px 7px;
+                }
+                .shipped {
+                  border-radius: 12px;
+                  padding: 4px 7px;
                 }
               }
               .order_details_product_parent {
@@ -2139,7 +2255,7 @@ body {
                     h4 {
                       font-size: 18px;
                       font-weight: 700;
-                      line-height: 20.6px;                   
+                      line-height: 20.6px;
                       margin-bottom: 7px;
                     }
                     h6 {
@@ -2207,11 +2323,7 @@ body {
                             font-weight: 400;
                             line-height: 22px;
                             margin-bottom: 5px;
-                            &:nth-child(2) {
-                              margin-left: -4px;
-                            }
                             &:nth-child(3) {
-                              margin-left: 9px;
                               margin-bottom: 10px;
                             }
                             &:nth-child(4) {
@@ -2283,6 +2395,9 @@ body {
                       margin-left: 10px;
                     }
                   }
+                }
+                .css-sghohy-MuiButtonBase-root-MuiButton-root {
+                  height: 35px;
                 }
               }
             }
@@ -2482,10 +2597,22 @@ body {
                         width: 70px;
                         height: 70px;
                         margin-bottom: 8px;
-                        a {
+                        .css-1e6y48t-MuiButtonBase-root-MuiButton-root {
+                          height: 20px;
+                          min-width: 20px;
+                          padding: 6px 0px;
                           .css-i4bv87-MuiSvgIcon-root {
                             width: 22px;
                             height: 22px;
+                          }
+                        }
+                        .css-sghohy-MuiButtonBase-root-MuiButton-root {
+                          height: 22px;
+                          min-width: 22px;
+                          padding: 6px 0px;
+                          .css-i4bv87-MuiSvgIcon-root {
+                            width: 14px;
+                            height: 14px;
                           }
                         }
                       }
@@ -2529,12 +2656,15 @@ body {
                   }
                 }
                 .filter_parent {
+                  flex-direction: column-reverse;
+                  align-items: normal;
                   .css-sghohy-MuiButtonBase-root-MuiButton-root {
                     border-radius: 6px;
                     padding: 8px 14px;
                   }
                   .sort_select {
-                    margin-left: 10px;
+                    margin-left: 0px;
+                    margin-bottom: 8px;
                     .css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root {
                       border-radius: 6px;
                     }
@@ -2619,7 +2749,7 @@ body {
               }
               .pagenation {
                 margin-bottom: 30px;
-                .css-lqq3n7-MuiButtonBase-root-MuiPaginationItem-root{
+                .css-lqq3n7-MuiButtonBase-root-MuiPaginationItem-root {
                   min-width: 22px;
                   height: 22px;
                 }
@@ -2695,7 +2825,7 @@ body {
                               }
                             }
                           }
-                          .move_cart_parent{
+                          .move_cart_parent {
                             justify-content: space-between;
                             .move_cart {
                               .css-1rwt2y5-MuiButtonBase-root-MuiButton-root {
@@ -2729,7 +2859,11 @@ body {
                   font-weight: 700;
                   line-height: 22.52px;
                 }
-                span {
+                .delivered {
+                  border-radius: 10px;
+                  padding: 2px 7px;
+                }
+                .shipped {
                   border-radius: 10px;
                   padding: 2px 7px;
                 }
@@ -2747,7 +2881,7 @@ body {
                     h4 {
                       font-size: 18px;
                       font-weight: 700;
-                      line-height: 20.6px;                   
+                      line-height: 20.6px;
                       margin-bottom: 6px;
                     }
                     h6 {
@@ -2815,11 +2949,7 @@ body {
                             font-weight: 400;
                             line-height: 22px;
                             margin-bottom: 4px;
-                            &:nth-child(2) {
-                              margin-left: -4px;
-                            }
                             &:nth-child(3) {
-                              margin-left: 9px;
                               margin-bottom: 8px;
                             }
                             &:nth-child(4) {
@@ -2891,6 +3021,9 @@ body {
                       margin-left: 8px;
                     }
                   }
+                }
+                .css-sghohy-MuiButtonBase-root-MuiButton-root {
+                  height: 35px;
                 }
               }
             }
@@ -3090,10 +3223,22 @@ body {
                         width: 60px;
                         height: 60px;
                         margin-bottom: 6px;
-                        a {
+                        .css-1e6y48t-MuiButtonBase-root-MuiButton-root {
+                          height: 18px;
+                          min-width: 18px;
+                          padding: 6px 0px;
                           .css-i4bv87-MuiSvgIcon-root {
                             width: 20px;
-                            height: 22px;
+                            height: 20px;
+                          }
+                        }
+                        .css-sghohy-MuiButtonBase-root-MuiButton-root {
+                          height: 20px;
+                          min-width: 20px;
+                          padding: 6px 0px;
+                          .css-i4bv87-MuiSvgIcon-root {
+                            width: 12px;
+                            height: 12px;
                           }
                         }
                       }
@@ -3137,12 +3282,15 @@ body {
                   }
                 }
                 .filter_parent {
+                  flex-direction: column-reverse;
+                  align-items: normal;
                   .css-sghohy-MuiButtonBase-root-MuiButton-root {
                     border-radius: 6px;
                     padding: 7px 12px;
                   }
                   .sort_select {
-                    margin-left: 10px;
+                    margin-left: 0px;
+                    margin-bottom: 6px;
                     .css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root {
                       border-radius: 6px;
                     }
@@ -3227,7 +3375,7 @@ body {
               }
               .pagenation {
                 margin-bottom: 25px;
-                .css-lqq3n7-MuiButtonBase-root-MuiPaginationItem-root{
+                .css-lqq3n7-MuiButtonBase-root-MuiPaginationItem-root {
                   min-width: 20px;
                   height: 20px;
                 }
@@ -3303,7 +3451,7 @@ body {
                               }
                             }
                           }
-                          .move_cart_parent{
+                          .move_cart_parent {
                             justify-content: space-between;
                             .move_cart {
                               .css-1rwt2y5-MuiButtonBase-root-MuiButton-root {
@@ -3337,7 +3485,11 @@ body {
                   font-weight: 700;
                   line-height: 20.52px;
                 }
-                span {
+                .delivered {
+                  border-radius: 10px;
+                  padding: 2px 7px;
+                }
+                .shipped {
                   border-radius: 10px;
                   padding: 2px 7px;
                 }
@@ -3355,7 +3507,7 @@ body {
                     h4 {
                       font-size: 16px;
                       font-weight: 700;
-                      line-height: 18.6px;                   
+                      line-height: 18.6px;
                       margin-bottom: 5px;
                     }
                     h6 {
@@ -3423,11 +3575,7 @@ body {
                             font-weight: 400;
                             line-height: 22px;
                             margin-bottom: 3px;
-                            &:nth-child(2) {
-                              margin-left: -4px;
-                            }
                             &:nth-child(3) {
-                              margin-left: 9px;
                               margin-bottom: 7px;
                             }
                             &:nth-child(4) {
@@ -3499,6 +3647,9 @@ body {
                       margin-left: 5px;
                     }
                   }
+                }
+                .css-sghohy-MuiButtonBase-root-MuiButton-root {
+                  height: 35px;
                 }
               }
             }

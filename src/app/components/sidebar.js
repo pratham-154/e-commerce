@@ -9,10 +9,33 @@ import ExitToAppRoundedIcon from "@mui/icons-material/ExitToAppRounded";
 import ProfileImage from "../../../public/images/profile_image.png";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { postApi } from "../../helpers/General";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { setAuthUserData } from "@/providers/redux/reducers/authSlice";
 
 const Sidebar = () => {
+  const router = useRouter();
   const pathname = usePathname();
+  const dispatch = useDispatch();
+
+  const handleLogout = async () => {
+    let resp = await postApi("user/logout");
+    console.log("resp", resp);
+    if (resp.status) {
+      toast.success(resp.message);
+      dispatch(
+        setAuthUserData({
+          login_expiry_at: resp.data.login_expiry_at,
+          login_token: resp.data.login_token,
+        })
+      );
+      router.push("/homepage");
+    } else {
+      toast.error(resp.message);
+    }
+  };
 
   const links = [
     {
@@ -40,7 +63,12 @@ const Sidebar = () => {
       name: "Change Password",
       path: "/dashboard/change-password",
     },
-    { icon: <ExitToAppRoundedIcon />, name: "Logout", path: "/homepage" },
+    {
+      icon: <ExitToAppRoundedIcon />,
+      name: "Logout",
+      path: "/homepage",
+      onClick: handleLogout,
+    },
   ];
 
   return (
@@ -68,13 +96,24 @@ const Sidebar = () => {
 
             return (
               <li key={index}>
-                <Link
-                  href={Array.isArray(link.path) ? link.path[0] : link.path}
-                  className={isActive ? "active" : ""}
-                >
-                  {link.icon}
-                  {link.name}
-                </Link>
+                {link.name === "Logout" ? (
+                  <Link
+                    href={Array.isArray(link.path) ? link.path[0] : link.path}
+                    className={isActive ? "active" : ""}
+                    onClick={link.onClick}
+                  >
+                    {link.icon}
+                    {link.name}
+                  </Link>
+                ) : (
+                  <Link
+                    href={Array.isArray(link.path) ? link.path[0] : link.path}
+                    className={isActive ? "active" : ""}
+                  >
+                    {link.icon}
+                    {link.name}
+                  </Link>
+                )}
               </li>
             );
           })}

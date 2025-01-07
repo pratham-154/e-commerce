@@ -1,0 +1,29 @@
+@import "../helper/reset.scss";
+
+.collection_parent {
+  padding: 90px 0px;
+  .collection_inner_parent {
+    .swiper_parent {
+      .swiper-slide {
+        display: flex;
+        border-radius: 20px;
+        margin-bottom: 20px;
+        .swiper_inner_parent {
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+      }
+      h3 {
+        font-family: Clash_Display;
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 28px;
+        letter-spacing: 0.08em;
+        text-align: center;
+      }
+    }
+  }
+}

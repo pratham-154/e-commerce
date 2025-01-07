@@ -29,16 +29,16 @@ const ProductListing = () => {
 
   const productSelect = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   const sortSelect = [
-    {
-      title: "Product Category (A-Z)",
-      sort: "category_id.title",
-      direction: "asc",
-    },
-    {
-      title: "Product Category (Z-A)",
-      sort: "category_id.title",
-      direction: "desc",
-    },
+    // {
+    //   title: "Product Category (A-Z)",
+    //   sort: "category_id.title",
+    //   direction: "asc",
+    // },
+    // {
+    //   title: "Product Category (Z-A)",
+    //   sort: "category_id.title",
+    //   direction: "desc",
+    // },
     {
       title: "Product Title (A-Z)",
       sort: "title",
@@ -135,6 +135,7 @@ const ProductListing = () => {
           totalPages: data.totalPages,
         });
       }
+      console.log("data", data);
     }
   };
 
@@ -152,7 +153,7 @@ const ProductListing = () => {
           return {
             ...prevState,
             selectedCategories: prevState.selectedCategories.filter(
-              (category) => category._id !== chipData._id
+              (category) => category !== chipData
             ),
           };
 
@@ -193,6 +194,7 @@ const ProductListing = () => {
   const widgets_icon = gridList
     ? "widgets_icon active"
     : "widgets_icon inactive";
+
   const list_icon = gridList ? "list_icon inactive" : "list_icon active";
 
   useEffect(() => {
@@ -342,7 +344,7 @@ const ProductListing = () => {
                 <div className="product_chips">
                   {filterData.stockSelect && (
                     <Chip
-                      label="In Stock"
+                      label={`${filterData.stockSelect}`}
                       onClick={() => handleClick("stockSelect")}
                       onDelete={() => handleDelete("stockSelect")}
                       deleteIcon={<CloseRoundedIcon />}
@@ -418,6 +420,7 @@ const ProductListing = () => {
                           stock={item.stock}
                           high_price={item.price}
                           low_price={item.discount}
+                          slug={item.slug}
                         />
                       </Grid>
                     ))}

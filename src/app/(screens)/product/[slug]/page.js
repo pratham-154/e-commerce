@@ -19,44 +19,170 @@ import "swiper/css/thumbs";
 
 // import required modules
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
-import { useEffect, useState } from "react";
-import { getApi, renderHtml } from "../../../../helpers/General";
-import { useParams } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
+import { getApi, postApi, renderHtml } from "../../../../helpers/General";
+import { useParams, useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const ProductDetails = () => {
-  const [count, setCount] = useState(false);
-  const [isActive, setIsActive] = useState(false);
+  const router = useRouter();
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [productData, setProductData] = useState([]);
   const [similarProductData, setSimilarProductData] = useState([]);
+  const [like, setLike] = useState(false);
+  const [productState, setProductState] = useState({
+    count: 1,
+    action: "increment",
+  });
   let imageUrl = process.env.mediaUrl;
   const { slug } = useParams();
+  const isFirstRender = useRef(true);
+  const pendingLikeUpdate = useRef(false);
 
   let getProductData = async () => {
     let resp = await getApi(`product/view/${slug}`);
+    console.log("resp", resp);
 
     if (resp && resp.status) {
       let { data } = resp;
       if (data && data.data) {
-        setProductData(data.data);
+        const product = data.data;
+        setProductData(product);
         setSimilarProductData(data.similarProduct);
+        setLike(data.like);
+        setProductState({
+          count: product.count || 1,
+          action: "increment",
+        });
+        await updateData(1);
       }
+    }
+  };
+
+  const updateData = async (newCount) => {
+    try {
+      const data = {
+        count: newCount,
+      };
+      await postApi(`product/update/${slug}`, data);
+    } catch (error) {
+      console.error("Error updating product count:", error);
+      toast.error("An error occurred while updating product count.");
+    }
+  };
+
+  const putLike = async () => {
+    try {
+      let data = { like, slug };
+      let resp = await postApi("user/like", data);
+      if (resp.status) {
+        toast.success(resp.message);
+      } else {
+        toast.error(resp.message || "Something went wrong");
+      }
+    } catch (error) {
+      console.error("Error updating like status:", error);
+      toast.error("Something went wrong while updating like status.");
+    } finally {
+      pendingLikeUpdate.current = false;
+    }
+  };
+
+  const handleLike = () => {
+    if (!pendingLikeUpdate.current) {
+      const updatedLike = !like;
+      setLike(updatedLike);
+      pendingLikeUpdate.current = true;
+    }
+  };
+
+  const handleCountChange = (type) => {
+    let newCount = productState.count;
+
+    if (type === "increment" && productState.count < productData.quantity) {
+      newCount++;
+    } else if (type === "decrement" && productState.count > 1) {
+      newCount--;
+    } else {
+      toast.error(
+        type === "increment"
+          ? "Cannot exceed available quantity."
+          : "Count cannot be less than 1."
+      );
+      return;
+    }
+
+    setProductState({
+      count: newCount,
+      action: type,
+    });
+
+    updateData(newCount);
+  };
+
+  const handleBuyNow = async () => {
+    try {
+      const orderData = {
+        item: productState.count,
+      };
+
+      const response = await postApi(`order/add/${slug}`, orderData);
+
+      if (response && response.status) {
+        toast.success("Order placed successfully!");
+        router.push(`/dashboard/my-order`);
+      } else {
+        toast.error(response.message || "Failed to place order.");
+      }
+    } catch (error) {
+      console.error("Error placing order:", error);
+      toast.error("An error occurred while placing your order.");
+    }
+  };
+
+  const updateURL = () => {
+    if (typeof window !== "undefined") {
+      const searchParams = new URLSearchParams();
+      searchParams.set("count", productState.count);
+      searchParams.set("like", like);
+      const queryString = `?${searchParams.toString()}`;
+      window.history.replaceState(null, "", queryString);
+      console.log("Updated query string:", queryString);
     }
   };
 
   useEffect(() => {
     getProductData();
-  }, []);
+  }, [slug]);
 
-  const increment = () => {
-    setCount(count + 1);
-  };
-
-  const decrement = () => {
-    if (count > 0) {
-      setCount(count - 1);
+  useEffect(() => {
+    if (productData.count !== 1 || productState.count !== 1) {
+      setProductState((prevState) => ({
+        ...prevState,
+        count: 1,
+        action: "increment",
+      }));
     }
-  };
+  }, [productData]);
+
+  useEffect(() => {
+    updateURL();
+  }, [productState.count]);
+
+  useEffect(() => {
+    updateURL();
+  }, [like]);
+
+  useEffect(() => {
+    if (!isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+
+    if (pendingLikeUpdate.current) {
+      putLike();
+    }
+  }, [like]);
 
   return (
     <div className="product_details_parent">
@@ -129,17 +255,15 @@ const ProductDetails = () => {
                               height={360}
                             />
                             <div className="heart_icon">
-                              {isActive ? (
+                              {like ? (
                                 <FavoriteRoundedIcon
-                                  onClick={() => {
-                                    setIsActive(!isActive);
-                                  }}
+                                  className="active"
+                                  onClick={handleLike}
                                 />
                               ) : (
                                 <FavoriteBorderRoundedIcon
-                                  onClick={() => {
-                                    setIsActive(!isActive);
-                                  }}
+                                  className="active inactive"
+                                  onClick={handleLike}
                                 />
                               )}
                             </div>
@@ -162,18 +286,50 @@ const ProductDetails = () => {
                     <span className="low_price">{`$${productData.discount}`}</span>
                   </div>
                   <div className="stock_parent">
-                    <span className="stock_tag">{productData.stock}</span>
+                    <span
+                      className={
+                        productData && productData.stock === "In Stock"
+                          ? "in_stock_text"
+                          : "out_stock_text"
+                      }
+                    >
+                      {productData.stock}
+                    </span>
                     <div className="counter_parent">
                       <RemoveRoundedIcon
-                        className="icons"
-                        onClick={decrement}
+                        className={`icons ${
+                          productState.action === "decrement" ? "active" : ""
+                        }`}
+                        onClick={() => handleCountChange("decrement")}
+                        style={{
+                          pointerEvents:
+                            productState.count <= 1 ? "none" : "auto",
+                          opacity: productState.count <= 1 ? 0.5 : 1,
+                        }}
                       />
-                      <span className="counter">{count + 1}</span>
-                      <AddRoundedIcon className="icons" onClick={increment} />
+                      <span className="counter">{productState.count}</span>
+                      <AddRoundedIcon
+                        className={`icons ${
+                          productState.action === "increment" ? "active" : ""
+                        }`}
+                        onClick={() => handleCountChange("increment")}
+                        style={{
+                          pointerEvents:
+                            productState.count === productData.quantity
+                              ? "none"
+                              : "auto",
+                          opacity:
+                            productState.count === productData.quantity
+                              ? 0.5
+                              : 1,
+                        }}
+                      />
                     </div>
                   </div>
                   <div className="button_parent">
-                    <Button variant="contained">Buy Now</Button>
+                    <Button variant="contained" onClick={handleBuyNow}>
+                      Buy Now
+                    </Button>
                     <Button variant="outlined">Add to Cart</Button>
                   </div>
                 </div>
@@ -185,7 +341,6 @@ const ProductDetails = () => {
                 ></div>
               </div>
             </div>
-
             <div className="similar_product_parent">
               <h3>Similar Products</h3>
               <div className="product_list">
@@ -201,6 +356,7 @@ const ProductDetails = () => {
                         stock={item.stock}
                         high_price={item.price}
                         low_price={item.discount}
+                        slug={item.slug}
                       />
                     </Grid>
                   ))}

@@ -14,16 +14,12 @@ import TopEffect from "../../../../../public/images/top_effect.png";
 import BottomEffect from "../../../../../public/images/bottom_effect.png";
 import Google from "../../../../../public/images/google.png";
 import Facebook from "../../../../../public/images/facebook.png";
-import {
-  emailRegex,
-  phoneNumberRegex,
-  passwordRegex,
-} from "../../../../helpers/General";
+import { emailRegex, passwordRegex } from "../../../../helpers/General";
 import { postApi } from "../../../../helpers/General";
 import { toast } from "react-toastify";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setAuthUserData } from "@/providers/redux/reducers/authSlice";
 const Validator = require("validatorjs");
 
@@ -61,23 +57,15 @@ const Login = () => {
       "The email format is invalid."
     );
 
-    Validator.register(
-      "passwordRegex",
-      (value) => passwordRegex.test(value),
-      "The password must contain at least 8 characters, including at least one uppercase letter, one lowercase letter, one number, and one special character."
-    );
-
     const rules = {
       email: "required|emailRegex",
-      password: "required|passwordRegex|min:8|max:20",
+      password: "required|min:8|max:20",
     };
 
     const validationErrorMessages = {
       "required.email": "The field is required.",
       "emailRegex.email": "The email format is invalid.",
       "required.password": "The field is required.",
-      "passwordRegex.password":
-        "The password must contain at least 8 characters, including at least one uppercase letter, one lowercase letter, one number, and one special character.",
       "min.password": "The password must be at least 8 characters.",
       "max.password": "The password may not be greater than 20 characters.",
     };
@@ -92,7 +80,14 @@ const Login = () => {
         if (response && response.status) {
           setFormData(defaultValue);
           toast.success(response.message);
-          dispatch(setAuthUserData({ login_token: response.data.login_token }));
+          dispatch(
+            setAuthUserData({
+              first_name: response.data.first_name,
+              login_expiry_at: response.data.login_expiry_at,
+              login_token: response.data.login_token,
+              image: response.data.image,
+            })
+          );
           router.push("/homepage");
         } else {
           console.log(response.message);
@@ -162,7 +157,7 @@ const Login = () => {
                       Login
                     </Button>
                   </div>
-                  <div className="lined_or">
+                  {/* <div className="lined_or">
                     <Typography variant="h6">or</Typography>
                   </div>
                   <div className="login_other">
@@ -200,7 +195,7 @@ const Login = () => {
                         </div>
                       </Link>
                     </div>
-                  </div>
+                  </div> */}
                 </form>
               </div>
             </div>

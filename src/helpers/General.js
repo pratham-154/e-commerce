@@ -22,11 +22,38 @@ const foreach = (obj, callback) => {
   return true;
 };
 
-let postApi = async (url, formData) => {
+const putApi = async (url, formData) => {
   let apiUrl = process.env.url;
   let userLoginData = store.getState().auth.data;
   let accessToken =
     userLoginData && userLoginData.login_token ? userLoginData.login_token : "";
+
+  try {
+    let resp = await axios.put(`${apiUrl}${url}`, formData, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    let { data } = resp;
+    return data;
+  } catch (error) {
+    console.error("PUT API Error:", error);
+    return {
+      status: false,
+      message: error.response?.data?.message || "Something went wrong!",
+      error: error.response?.data || error.message,
+    };
+  }
+};
+
+let postApi = async (url, formData) => {
+  let apiUrl = process.env.url;
+  let userLoginData = store.getState().auth.data;
+  let accessToken =
+    userLoginData && userLoginData.login_token && userLoginData.login_token
+      ? userLoginData.login_token
+      : "";
   let resp = await axios.post(`${apiUrl}${url}`, formData, {
     headers: {
       Authorization: "Bearer " + accessToken,
@@ -36,11 +63,35 @@ let postApi = async (url, formData) => {
   return data;
 };
 
-let getApi = async (url, params) => {
+let deleteApi = async (url, formData = {}) => {
   let apiUrl = process.env.url;
   let userLoginData = store.getState().auth.data;
   let accessToken =
     userLoginData && userLoginData.login_token ? userLoginData.login_token : "";
+
+  try {
+    let resp = await axios.delete(`${apiUrl}${url}`, {
+      data: formData,
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    let { data } = resp;
+    return data;
+  } catch (error) {
+    console.error("Error in deleteApi:", error);
+    return { status: false, message: "Request failed" };
+  }
+};
+
+let getApi = async (url, params) => {
+  let apiUrl = process.env.url;
+  let userLoginData = store.getState().auth.data;
+  let accessToken =
+    userLoginData && userLoginData.login_token && userLoginData.login_token
+      ? userLoginData.login_token
+      : "";
   let resp = await axios
     .get(`${apiUrl}${url}`, {
       params,
@@ -84,7 +135,9 @@ const renderHtml = (data) => {
 module.exports = {
   validatorMake,
   foreach,
+  putApi,
   postApi,
+  deleteApi,
   getApi,
   getHash,
   renderHtml,

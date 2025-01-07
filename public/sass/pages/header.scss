@@ -45,6 +45,7 @@
         .right_side_menu {
           list-style-type: none;
           display: flex;
+          align-items: center;
           gap: 8px;
           .login {
             .login_btn {
@@ -81,6 +82,36 @@
               .sign_up_btn {
                 color: $hoverText;
               }
+            }
+          }
+          .profile_btn {
+            display: flex;
+            align-items: center;
+            color: $secondaryText;
+            background-color: $primaryBackground;
+            font-family: Poppins;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 21px;
+            text-align: center;
+            border: 1px solid $primaryBorder;
+            border-radius: 20px;
+            padding: 10px 20px;
+            .profile_image {
+              width: 20px;
+              height: 20px;
+              margin-right: 6px;
+              img {
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+                border-radius: 50%;
+              }
+            }
+          }
+          &:hover {
+            .profile_btn {
+              color: $hoverText;
             }
           }
         }
@@ -233,6 +264,36 @@
               }
             }
           }
+          .profile_btn {
+            display: flex;
+            align-items: center;
+            color: $secondaryText;
+            background-color: $primaryBackground;
+            font-family: Poppins;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 21px;
+            text-align: center;
+            border: 1px solid $primaryBorder;
+            border-radius: 20px;
+            padding: 10px 20px;
+            .profile_image {
+              width: 20px;
+              height: 20px;
+              margin-right: 6px;
+              img {
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+                border-radius: 50%;
+              }
+            }
+          }
+          &:hover {
+            .profile_btn {
+              color: $hoverText;
+            }
+          }
         }
       }
     }
@@ -300,6 +361,15 @@
                 padding: 9px 18px;
               }
             }
+            .profile_btn {
+              line-height: 18px;
+              padding: 9px 18px;
+              .profile_image {
+                width: 20px;
+                height: 20px;
+                margin-right: 6px;
+              }
+            }
           }
         }
       }
@@ -353,6 +423,15 @@
               .sign_up_btn {
                 line-height: 15px;
                 padding: 8px 16px;
+              }
+            }
+            .profile_btn {
+              line-height: 15px;
+              padding: 8px 16px;
+              .profile_image {
+                width: 20px;
+                height: 20px;
+                margin-right: 6px;
               }
             }
           }
@@ -414,6 +493,15 @@
               .sign_up_btn {
                 line-height: 15px;
                 padding: 7px 14px;
+              }
+            }
+            .profile_btn {
+              line-height: 15px;
+              padding: 7px 14px;
+              .profile_image {
+                width: 18px;
+                height: 18px;
+                margin-right: 6px;
               }
             }
           }
@@ -478,6 +566,15 @@
                 padding: 7px 14px;
               }
             }
+            .profile_btn {
+              line-height: 15px;
+              padding: 7px 14px;
+              .profile_image {
+                width: 18px;
+                height: 18px;
+                margin-right: 6px;
+              }
+            }
           }
         }
         .menu_bar {
@@ -536,6 +633,15 @@
               .sign_up_btn {
                 line-height: 12px;
                 padding: 6px 12px;
+              }
+            }
+            .profile_btn {
+              line-height: 12px;
+              padding: 6px 12px;
+              .profile_image {
+                width: 16px;
+                height: 16px;
+                margin-right: 6px;
               }
             }
           }
@@ -615,6 +721,15 @@
               .sign_up_btn {
                 line-height: 9px;
                 padding: 5px 10px;
+              }
+            }
+            .profile_btn {
+              line-height: 9px;
+              padding: 5px 10px;
+              .profile_image {
+                width: 16px;
+                height: 16px;
+                margin-right: 6px;
               }
             }
           }

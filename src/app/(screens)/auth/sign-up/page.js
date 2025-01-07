@@ -73,18 +73,12 @@ const SignUp = () => {
       "The :attribute must be a valid phone number."
     );
 
-    Validator.register(
-      "passwordRegex",
-      (value) => passwordRegex.test(value),
-      "The password must contain at least 8 characters, including at least one uppercase letter, one lowercase letter, one number, and one special character."
-    );
-
     const rules = {
       first_name: "required",
       last_name: "required",
       phone_number: "required|phoneNumberRegex|min:10|max:10",
       email: "required|emailRegex",
-      password: "required|passwordRegex|min:8|max:20|confirmed",
+      password: "required|min:8|max:20|confirmed",
       password_confirmation: "required",
     };
 
@@ -99,8 +93,6 @@ const SignUp = () => {
       "required.email": "The field is required.",
       "emailRegex.email": "The email format is invalid.",
       "required.password": "The field is required.",
-      "passwordRegex.password":
-        "The password must contain at least 8 characters, including at least one uppercase letter, one lowercase letter, one number, and one special character.",
       "min.password": "The password must be at least 8 characters.",
       "max.password": "The password may not be greater than 20 characters.",
       "required.password_confirmation": "The field is required.",
@@ -249,7 +241,7 @@ const SignUp = () => {
                       Submit
                     </Button>
                   </div>
-                  <div className="lined_or">
+                  {/* <div className="lined_or">
                     <Typography variant="h6">or</Typography>
                   </div>
                   <div className="login_other">
@@ -287,7 +279,7 @@ const SignUp = () => {
                         </div>
                       </Link>
                     </div>
-                  </div>
+                  </div> */}
                 </form>
               </div>
             </div>

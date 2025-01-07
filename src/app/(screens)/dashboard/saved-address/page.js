@@ -1,20 +1,56 @@
 "use client";
 import Image from "next/image";
 import "../../../../../public/sass/pages/my_profile.scss";
-import { Container, Grid, Radio } from "@mui/material";
+import { Button, Container, Grid, Radio } from "@mui/material";
 import TopDesign from "../../../../../public/images/account_top_design.png";
 import BottomDesign from "../../../../../public/images/account_bottom_design.png";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import EditCalendarIcon from "@mui/icons-material/EditCalendar";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Sidebar from "@/app/components/sidebar";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { getApi, deleteApi } from "../../../../helpers/General";
+import { toast } from "react-toastify";
 
 const SavedAddress = () => {
+  const router = useRouter();
+  const [pageData, setPageData] = useState([]);
   const [selectedValue, setSelectedValue] = useState("a");
+
+  let getData = async () => {
+    let resp = await getApi("address/view");
+
+    if (resp && resp.status) {
+      let { data } = resp;
+      if (data && data.data) {
+        setPageData(data.data);
+      }
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  useEffect(() => {
+    if (pageData && pageData.length > 0) {
+      setSelectedValue(pageData[0]._id);
+    }
+  }, [pageData]);
 
   const handleChange = (event) => {
     setSelectedValue(event.target.value);
+  };
+
+  const handleDelete = async (_id) => {
+    let resp = await deleteApi(`address/delete/${_id}`);
+    if (resp.status) {
+      toast.success(resp.message);
+      setPageData((prevData) => prevData.filter((data) => data._id !== _id));
+    } else {
+      toast.error(resp.message || "Failed to delete the address");
+    }
   };
 
   return (
@@ -56,56 +92,46 @@ const SavedAddress = () => {
                       <h3>Saved Address</h3>
                     </div>
                     <div className="address_select_parent">
-                      <div className="address_select">
-                        <div className="address_radio">
-                          <Radio
-                            checked={selectedValue === "a"}
-                            onChange={handleChange}
-                            value="a"
-                            name="radio-buttons"
-                            inputProps={{ "aria-label": "A" }}
-                          />
-                        </div>
-                        <div className="address_details_parent">
-                          <div className="address_details">
-                            <h5>Charles Smith</h5>
-                            <span>Home</span>
+                      {pageData.map((data, index) => (
+                        <div className="address_select" key={index}>
+                          <div className="address_radio">
+                            <Radio
+                              checked={selectedValue === data._id}
+                              onChange={handleChange}
+                              value={data._id}
+                              name="radio-buttons"
+                              inputProps={{
+                                "aria-label": `Address-${index + 1}`,
+                              }}
+                            />
                           </div>
-                          <h6>
-                            2722 Ponce De Leon Blvd Coral GablesState Florida,
-                            3134
-                          </h6>
-                        </div>
-                        <div className="address_icons">
-                          <EditCalendarIcon />
-                          <DeleteIcon />
-                        </div>
-                      </div>
-                      <div className="address_select">
-                        <div className="address_radio">
-                          <Radio
-                            checked={selectedValue === "b"}
-                            onChange={handleChange}
-                            value="b"
-                            name="radio-buttons"
-                            inputProps={{ "aria-label": "B" }}
-                          />
-                        </div>
-                        <div className="address_details_parent">
-                          <div className="address_details">
-                            <h5>Charles Smith</h5>
-                            <span>Office</span>
+                          <div className="address_details_parent">
+                            <div className="address_details">
+                              <h5>{`${data.user_id.first_name} ${data.user_id.last_name}`}</h5>
+                              {/* <span>Home</span> */}
+                            </div>
+                            <h6>
+                              {`${data.house}, ${data.street}, ${data.city}, ${data.state} - ${data.pincode}`}
+                            </h6>
                           </div>
-                          <h6>
-                            2722 Ponce De Leon Blvd Coral GablesState Florida,
-                            3134
-                          </h6>
+                          <div className="address_icons">
+                            <EditCalendarIcon
+                              onClick={() =>
+                                router.push(`/edit-address?_id=${data._id}`)
+                              }
+                            />
+                            <DeleteIcon
+                              onClick={() => handleDelete(data._id)}
+                            />
+                          </div>
                         </div>
-                        <div className="address_icons">
-                          <EditCalendarIcon />
-                          <DeleteIcon />
-                        </div>
-                      </div>
+                      ))}
+                      <Button
+                        variant="contained"
+                        onClick={() => router.push("/add-address")}
+                      >
+                        Add New Address
+                      </Button>
                     </div>
                   </div>
                 </div>

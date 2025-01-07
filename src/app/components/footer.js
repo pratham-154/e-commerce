@@ -13,13 +13,17 @@ const Footer = () => {
   const [activeLink, setActiveLink] = useState("");
 
   const services = [
+    // {
+    //   path: "/new-arrivals",
+    //   name: "New Arrivals",
+    // },
     {
       path: "/products",
       name: "Product",
     },
     {
-      path: "#",
-      name: "Collection",
+      path: "/about-us",
+      name: "About Us",
     },
   ];
 
@@ -72,7 +76,7 @@ const Footer = () => {
                 </Grid>
                 <Grid item xl={9} lg={9} md={9} sm={9} xs={12}>
                   <Grid container spacing={1}>
-                    <Grid item xl={3} lg={3} md={3} sm={3} xs={6}>
+                    <Grid item xl={4} lg={4} md={4} sm={4} xs={6}>
                       <div className="footer_content social_icons">
                         <h3>Follow Us</h3>
                         <ul>
@@ -97,7 +101,7 @@ const Footer = () => {
                         </ul>
                       </div>
                     </Grid>
-                    <Grid item xl={3} lg={3} md={3} sm={3} xs={6}>
+                    <Grid item xl={4} lg={4} md={4} sm={4} xs={6}>
                       <div className="footer_content">
                         <h3>Services</h3>
                         <ul>
@@ -119,7 +123,7 @@ const Footer = () => {
                         </ul>
                       </div>
                     </Grid>
-                    <Grid item xl={3} lg={3} md={3} sm={3} xs={6}>
+                    <Grid item xl={4} lg={4} md={4} sm={4} xs={6}>
                       <div className="footer_content">
                         <h3>Useful Links</h3>
                         <ul>
@@ -141,7 +145,7 @@ const Footer = () => {
                         </ul>
                       </div>
                     </Grid>
-                    <Grid item xl={3} lg={3} md={3} sm={3} xs={6}>
+                    {/* <Grid item xl={3} lg={3} md={3} sm={3} xs={6}>
                       <div className="footer_content">
                         <h3>Quick Links</h3>
                         <ul>
@@ -162,7 +166,7 @@ const Footer = () => {
                           ))}
                         </ul>
                       </div>
-                    </Grid>
+                    </Grid> */}
                   </Grid>
                 </Grid>
               </Grid>
